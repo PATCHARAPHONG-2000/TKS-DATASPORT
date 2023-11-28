@@ -23,7 +23,7 @@ require_once('../authen.php');
 <body>
 
     <div class=" container-fluid " >
-        <h1>12345</h1>
+        <h1>Score</h1>
     </div>
 
     <?php include_once('../includes/footer.php') ?>
