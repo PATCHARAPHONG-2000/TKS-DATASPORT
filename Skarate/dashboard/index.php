@@ -127,10 +127,8 @@
 
 
             // เพิ่มข้อมูลคะแนนใน local storage
-            localStorage.setItem('finalSum', finalSum.toFixed(1));
-            localStorage.setItem('allScores', JSON.stringify(numbers.map(value => value.toFixed(1))));
-            localStorage.setItem('minValue', minValue.toFixed(1));
-            localStorage.setItem('maxValue', maxValue.toFixed(1));
+            localStorage.setItem('finalSum', finalSum.toFixed(2));
+           
         }
 
         function clearInputs() {
