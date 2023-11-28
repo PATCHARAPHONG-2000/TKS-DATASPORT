@@ -1,0 +1,23 @@
+RewriteEngine on
+
+<IfModule mod_headers.c>
+    # อนุญาตให้เรียกข้อมูลจากโดเมนที่กำหนด
+    Header set Access-Control-Allow-Origin "https://www.example.com"
+    # อนุญาตการใช้งานเมทอด HTTP (GET, POST, PUT, DELETE, เป็นต้น)
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    # อนุญาตให้ส่งคุกกี้
+    Header set Access-Control-Allow-Credentials "true"
+    # อนุญาตการส่งคอนเทนต์ไปยังหัวเรื่อง (header) ที่กำหนด
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+
+ErrorDocument 404 "<script>window.location.href='../';</script>"
+
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [L]
+
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [L]
+
+
