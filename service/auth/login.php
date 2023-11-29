@@ -24,78 +24,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // ตรวจสอบบทบาทของผู้ใช้ในตาราง users-t
-        $stmtT = $conn->prepare("SELECT * FROM users_t WHERE email = :email");
-        $stmtT->bindParam(':email', $email);
-        $stmtT->execute();
-
-        $userT = $stmtT->fetch(PDO::FETCH_ASSOC);
-
-        if ($user || $userT) {
-            if ($user && password_verify($password, $user['password'])) {
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
                 // ผู้ใช้มีในตาราง users และรหัสผ่านถูกต้อง
                 $_SESSION['AD_ID'] = $user['id'];
                 $_SESSION['AD_USERNAME'] = $user['email'];
 
                 echo json_encode([
                     'status' => true,
-                    'email' => 'admin',
-                    // เปลี่ยนเป็น 'admin'
-                    'message' => 'Admin Login Success'
+                    'email' => 'admin', // เปลี่ยนเป็น 'admin' หรือบทบาทที่เหมาะสม
+                    'message' => 'Login Success'
                 ]);
                 exit();
-            } elseif ($userT && password_verify($password, $userT['password'])) {
-                // ตรวจสอบ Role ของผู้ใช้ในตาราง users_t
-
-                $_SESSION['AD_ID'] = $userT['id'];
-                $_SESSION['AD_USERNAME'] = $userT['email'];
-                $_SESSION['AD_ROLE'] = $userT['Role'];
-
-                if ($_SESSION['AD_ROLE'] == 'superadmin') {
-
-                    echo json_encode([
-                        'status' => true,
-                        'email' => 'admin-t',
-                        'role' => 'superadmin',
-                        'message' => 'Admin Login Success'
-                    ]);
-                    exit();
-                } else if ($_SESSION['AD_ROLE'] == 'admin') {
-                    echo json_encode([
-                        'status' => true,
-                        'email' => 'admin-t',
-                        'role' => 'admin',
-                        'message' => 'Admin Login Success'
-                    ]);
-                    exit();
-                } else if ($_SESSION['AD_ROLE'] == 'karate') {
-                    echo json_encode([
-                        'status' => true,
-                        'email' => 'admin-t',
-                        'role' => 'karate',
-                        'message' => 'Admin Login Success'
-                    ]);
-                    exit();
-                } else if ($_SESSION['AD_ROLE'] == 'pencak') {
-                    echo json_encode([
-                        'status' => true,
-                        'email' => 'admin-t',
-                        'role' => 'pencak',
-                        'message' => 'Admin Login Success'
-                    ]);
-                    exit();
-                } else {
-
-                    respondError('ไม่มีสิทธิ์เข้าใช้งาน');
-                }
-
             } else {
-                respondError('รหัสผ่านไม่ถูกต้อง กรุณากรอกรหัสผ่านอีกครั้ง');
+                respondError('รหัสผ่านไม่ถูกต้อง');
             }
         } else {
-            respondError('ไม่พบอีเมลนี้ในระบบ กรุณากรอกอีเมลอีกครั้ง');
+            respondError('ไม่พบอีเมลนี้ในระบบ กรุณากรอกอีเมลที่ถูกต้อง');
         }
     } catch (PDOException $e) {
-        respondError("Database Error: " . $e->getMessage());
+        respondError("เกิดข้อผิดพลาดในฐานข้อมูล: กรุณาลองอีกครั้งภายหลัง");
     }
 }

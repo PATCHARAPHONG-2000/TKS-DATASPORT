@@ -59,7 +59,16 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
           <li><a class="nav-link scrollto " href="index.php#portfolio">Photo</a></li>
           <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="login">Login</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Login
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
+              <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+            </div>
+          </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -246,12 +255,54 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                 } else if (resp.email === "admin-t") {
                   if (resp.role === "superadmin") {
                     location.href = "superadmin/"
-                  }else if(resp.role === "karate") {
-                    location.href = "Skarate/"  
-                  }else if(resp.role === "pencak") {
-                    location.href = "Spencak/"  
+                  } else if (resp.role === "karate") {
+                    location.href = "Skarate/"
+                  } else if (resp.role === "pencak") {
+                    location.href = "Spencak/"
                   } else if (resp.role === "admin") {
+                    let timerInterval;
                     Swal.fire({
+                      title: "Auto close alert!",
+                      html: "I will close in <b></b> milliseconds.",
+                      timer: 2000,
+                      timerProgressBar: true,
+                      didOpen: () => {
+                        Swal.showLoading();
+                        const timer = Swal.getPopup().querySelector("b");
+                        timerInterval = setInterval(() => {
+                          timer.textContent = `${Swal.getTimerLeft()}`;
+                        }, 100);
+                      },
+                      willClose: () => {
+                        clearInterval(timerInterval);
+                      }
+                    }).then((result) => {
+                      /* Read more about handling dismissals below */
+                      if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log("I was closed by the timer");
+                      }
+                    });
+                  }
+                }
+              }
+            });
+          }
+        });
+      });
+
+    });
+
+
+
+  </script>
+
+
+</body>
+
+</html>
+
+<!-- 
+Swal.fire({
                       title: "จังหวัด",
                       html: `
                       <div class="form-group mt-4 ">
@@ -303,7 +354,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                       allowOutsideClick: () => !Swal.isLoading()
                     }).then((result) => {
                       if (result.isConfirmed) {
-
                         Swal.fire({
                           title: "กรุณากรอก PIN",
                           input: "text",
@@ -350,23 +400,4 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                       }
                     });
                   } else {
-                    // Code for other roles or handle invalid role
-                  }
-
-                }
-              }
-            });
-          }
-        });
-      });
-
-    });
-
-
-
-  </script>
-
-
-</body>
-
-</html>
+                    // Code for other roles or handle invalid role -->

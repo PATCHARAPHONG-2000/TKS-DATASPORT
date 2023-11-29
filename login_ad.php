@@ -1,16 +1,9 @@
 <?php
-/**
- * Login Page
- *
- * @link https://appzstory.dev
- * @author Yothin Sapsamran (Jame AppzStory Studio)
- */
 require_once 'service/connect.php';
-
 $Database = new Database();
 $conn = $Database->connect();
 
-$sql = $conn->prepare("SELECT * FROM id_users");
+$sql = $conn->prepare("SELECT * FROM data_id");
 $sql->execute();
 $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -20,7 +13,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <meta charset="UTF-8">
-    <title>TKS SOFTVISION</title>
+    <title>TKS SPORTDATA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
     <!-- stylesheet -->
@@ -59,7 +52,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
-            <h1 class="logo"><a href="./">TKS SOFTVISION</a></h1>
+            <h1 class="logo"><a href="./">TKS SPORTDATA</a></h1>
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto active" href="index.php#hero">Home</a></li>
@@ -74,40 +67,34 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
     </header>
     <!-- End Header -->
 
-
     <main id="main">
 
-        <section class="vh-100 province " id="province">
-            <div class="container  ">
-                <div class="row d-flex justify-content-center ">
+        <div id="toast-container" class="position-absolute top-20 end-0 p-3"></div>
+
+        <section class="vh-100 login" id="login">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div class="card " style="border-radius: 1rem;">
-                            <div class="card-body  align-items-center">
-
-                                <form id="formprovince">
-                                    <div class="mb-md-5 ">
-
-                                        <h2 class="fw-bold mb-5 mt-2 text-uppercase text-center">จังหวัด</h2>
-
-                                        <div class="form-group">
-                                            <label for="id_province" class="form-label"> เลือกจังหวัด</label>
-                                            <select class="form-control" name="id_province" id="id_province" required>
-                                                <option value="" disabled selected>เลือกจังหวัด</option>
-                                                <?php foreach ($rows as $row): ?>
-                                                    <option value="<?php echo $row['province']; ?>">
-                                                        <?php echo $row['province']; ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
+                        <div class="card" style="border-radius: 1rem;">
+                            <div class="card-body align-items-center">
+                                <form id="formLogin">
+                                    <div class="mb-md-5">
+                                        <h2 class="fw-bold mb-5 text-uppercase text-center">AD Card</h2>
+                                        <div class="form-outline form-white mb-4">
+                                            <input type="text" id="user" name="user"
+                                                class="form-control form-control-lg" placeholder="USERNAME" required />
                                         </div>
-
-                                        <div class="mt-2 pt-2 text-center">
-                                            <button class="btn align-items-center" name="province"
-                                                type="submit">OK</button>
+                                        <div class="form-outline form-white mb-4">
+                                            <input type="password" id="password" name="password"
+                                                class="form-control form-control-lg" placeholder="PASSWORD" required />
                                         </div>
-
+                                        <p class="small mb-5 pb-lg-2 "><a class="-50" id="resetpassword" href="">Forgot
+                                                password?</a></p>
+                                        <div class="mt-4 pt-2 text-center">
+                                            <button class="btn align-items-center" name="login"
+                                                type="submit">Login</button>
+                                        </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -115,6 +102,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </section>
+
         </div>
     </main>
     <!-- End #main -->
@@ -127,7 +115,7 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-info">
-                            <h3>TKS SOFTVISION</h3>
+                            <h3>TKS SPORTDATA</h3>
                             <p>
                                 Anusawari Sub-district <br> Bang Khen District <br> Bangkok 10220, Thailand.
                                 <br><br><br>
@@ -153,7 +141,9 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong><span>TKS</span></strong>. All Rights Reserved
+                <strong>Copyright &copy; 2023
+                    <a href="https://www.facebook.com/PHATCHARAPHONG2000" target="_blank">PATCHARAPHONGDEV</a>.
+                </strong> All rights reserved.
             </div>
             <div class="credits">
 
@@ -181,113 +171,38 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/login.js"></script>
     <script src="assets/js/reset_pw.js"></script>
 
 
     <script>
-
         $(function () {
-            /** Ajax Submit Login */
-            $("#formprovince").submit(function (e) {
+            $("#formLogin").submit(function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    url: "service/auth/check_pin.php",
+                    url: "service/auth/login_ad.php",
                     data: $(this).serialize(),
                     dataType: "json",
                 }).done(function (resp) {
                     if (resp.error) {
-                        console.log(resp);
                         Swal.fire({
                             icon: "error",
                             title: "Oops...",
                             text: resp.error,
-                            confirmButtonColor: "#FF0000", // สีแดง
+                            confirmButtonColor: "#FF0000", // Red color
                         });
                     } else {
-                        console.log(resp);
-                        let timerInterval;
-                        Swal.fire({
-                            title: "กรุณารอสักครู่",
-                            html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
-                            timer: 2000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading();
-                                const b = Swal.getHtmlContainer().querySelector("b");
-                                timerInterval = setInterval(() => {
-                                    b.textContent = Swal.getTimerLeft();
-                                }, 100);
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval);
-                            },
-                        }).then((result) => {
-                            /* Read more about handling dismissals below */
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                                console.log("เข้าแล้ว");
-                                Swal.fire({
-                                    title: "กรุณากรอก PIN",
-                                    html: `
-                                    <div class="container pin mt-4">
-                                        <form id="pinForm">
-                                            <div class="input-field">
-                                                <input type="number" id="digit1" max="9" oninput="moveToNext(this, 'digit2')" />
-                                                <input type="number" id="digit2" max="9" oninput="moveToNext(this, 'digit3')" />
-                                                <input type="number" id="digit3" max="9" oninput="moveToNext(this, 'digit4')" />
-                                                <input type="number" id="digit4" max="9" oninput="moveToNext(this, 'digit5')" />
-                                                <input type="number" id="digit5" max="9" oninput="moveToNext(this, 'digit6')" />
-                                                <input type="number" id="digit6" max="9" />
-                                            </div>
-                                        </form>
-                                    </div>
-                                    `,
-                                    showCancelButton: true,
-                                    confirmButtonText: "Look up",
-                                    showLoaderOnConfirm: true,
-                                    preConfirm: (pin) => {
-                                        return new Promise((resolve, reject) => {
-                                            $.ajax({
-                                                url: "service/auth/check_pin.php",
-                                                type: "POST",
-                                                data: {
-                                                    pin: pin,
-                                                },
-                                                dataType: "json",
-                                                success: function (response) {
-                                                    if (response.status) {
-                                                        console.log(response);
-                                                        resolve(response);
-                                                    } else {
-                                                        console.log(response.message);
-                                                        reject(response.message);
-                                                    }
-                                                },
-                                                error: function (xhr, ajaxOptions, thrownError) {
-                                                    console.log('aaaaaaaaa0000')
-                                                    reject(thrownError);
-                                                },
-                                            });
-                                        }).catch((error) => {
-                                            Swal.showValidationMessage(error);
-                                        });
-                                    },
-                                    allowOutsideClick: () => !Swal.isLoading()
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        console.log('aaaaaaaaa')
-                                    }
-                                });
-                            }
-                        });
+                        if (resp.role === "superadmin") {
+                            location.href = "superadmin/";
+                        } else if (resp.role === "userad") {
+                            location.href = "pages-ad/";
+                        } else {
+                            console.log("Role not recognized");
+                        }
                     }
                 });
             });
-
         });
-
-
 
     </script>
 
