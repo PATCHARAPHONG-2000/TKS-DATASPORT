@@ -195,7 +195,28 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
                         if (resp.role === "superadmin") {
                             location.href = "superadmin/";
                         } else if (resp.role === "userad") {
-                            location.href = "pages-ad/";
+                            let timerInterval;
+                            Swal.fire({
+                                title: "กำลังเข้าสู่ระบบ",
+                                html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent = `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    // The timer was responsible for closing the alert
+                                    location.href = "pages-ad/";
+                                }
+                            });
                         } else {
                             console.log("Role not recognized");
                         }
