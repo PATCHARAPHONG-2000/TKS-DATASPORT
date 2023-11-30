@@ -11,12 +11,8 @@ $sql->execute();
 $adm = $conn->prepare("SELECT * FROM data_admin");
 $adm->execute();
 
-
 $per = $conn->prepare("SELECT * FROM personnel");
 $per->execute();
-
-$eventsname = null;
-$areaname = null;
 
 if (isset($_SESSION['id_city'])) {
     $id_province = $_SESSION['id_city']['province'];
@@ -24,28 +20,6 @@ if (isset($_SESSION['id_city'])) {
     $id_province = 'default_status';
 }
 
-while ($rowe = $sql->fetch(PDO::FETCH_ASSOC)) {
-    if ($id_province == $rowe['province']) {
-        $areac = $rowe['area'];
-        $event = $rowe['events'];
-
-        while ($rowr = $adm->fetch(PDO::FETCH_ASSOC)) {
-            if ($areac === $rowr['area']) {
-                if ($rowr['IsActive'] == 1) {
-                    $eventsname = $rowr['events'];
-                    $areaname = $rowr['area'];
-
-                }
-            } elseif ($event === $rowr['area']) {
-                if ($rowr['IsActive'] == 1) {
-                    $eventsname = $rowr['events'];
-                    $areaname = $rowr['area'];
-
-                }
-            }
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -80,152 +54,69 @@ while ($rowe = $sql->fetch(PDO::FETCH_ASSOC)) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-
                             <div class="card shadow">
-
                                 <div class="card-header border-0 pt-4">
-                                    <div style="float: left;">
-                                        <h4>
-                                            <i class="nav-icon fa-solid fa-address-card"></i>
-                                            ตวจสอบรายชื่อ EVENTS
-                                        </h4>
-                                        <?php if ($eventsname == true) { ?>
-                                            <a href="#" class="btn btn-info mt-3" data-toggle="modal"
-                                                data-target="#myModal">
-                                                <i class="nav-icon fa-solid fa-user-plus"></i>
-                                                เพิ่มรายชื่อ
-                                            </a>
-                                        <?php } else { ?>
-                                            <?php echo '<p class="mt-4" style="font-size: 20px; color: red">ยังไม่เปิดรับสมัคร</p>';
-                                        } ?>
-                                    </div>
-                                    <div class="mr-4" style="float: right; font-size: 20px;">
-                                        <?php if ($rowr['create_time'] == true) { ?>
-                                            เริ่มรับสมัคร :<span style="color: red" >
-                                                <?php echo $rowr['create_time'] ?>
-                                            </span>
-                                            <br>
-                                            ถึงวันที่ :<span style="color: red"></span>
-                                                <?php echo $rowr['end_time'] ?>
-                                            </span>
-                                        <?php } ?>
-                                    </div>
-
-
+                                    <h4>
+                                        <i class="nav-icon fa-solid fa-address-card mr-2"></i>
+                                        ฝ่ายจัดการแข่งขัน
+                                    </h4>
                                 </div>
 
                                 <div class="card-body">
-                                    <div class="row mb-4" data-eventsname="<?php echo $eventsname; ?>"
-                                        data-areaname="<?php echo $areaname; ?>">
-                                        <div class="col-md-6 px-1 px-md-5">
-                                            <div class="form-group">
-                                                <label for="nameevents">อีเว้นท์</label>
-                                                <input type="text" class="form-control" name="nameevents"
-                                                    id="nameevents" value="<?php echo $eventsname; ?>" disabled>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 px-1 px-md-5">
-                                            <div class="form-group">
-                                                <label for="area">ภูมิภาค</label>
-                                                <input type="text" class="form-control" name="area" id="area"
-                                                    value="<?php echo $areaname; ?>" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal fade" id="myModal" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-xl">
-                                            <div class="modal-content px-md-2">
-
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">เลือกรายชื่อ</h5>
-                                                    <a href="#" class="btn btn-info" data-dismiss="modal">
-                                                        <i class="fa-solid fa-xmark"></i>
-                                                    </a>
+                                    <form id="formData" id="originalCardBody" enctype="multipart/form-data" class="mb-4" >
+                                        <!-- <form action="../../service/managercard/create.php" method="post" enctype="multipart/form-data" > -->
+                                        <div class="card-body" id="originalCardBody">
+                                            <div class="row">
+                                                <div class="col-md-6 px-1 px-md-5">
+                                                    <div class="form-group">
+                                                        <label for="firstname">ชื่อ <span
+                                                                style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" name="firstname"
+                                                            id="firstname" placeholder="ชื่อ" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="status">ตำแหน่ง </label>
+                                                        <input type="text" class="form-control" name="firstname"
+                                                            id="firstname" placeholder="ชื่อ" >
+                                                    </div>
                                                 </div>
-
-                                                <div class="modal-body">
-                                                    <table id="employeeTable"
-                                                        class="table table table-striped table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <input type="checkbox" id="select_all">
-                                                                    <label class=" form-check-label "></label>
-                                                                </th>
-                                                                <th>ID</th>
-                                                                <th>First Name</th>
-                                                                <th>Last Name</th>
-                                                                <th>Status</th>
-                                                                <th>Province</th>
-                                                                <th>Department</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $counter = 1;
-                                                            if ($per->rowCount() > 0) {
-                                                                while ($person = $per->fetch(PDO::FETCH_ASSOC)) {
-
-                                                                    if (isset($_SESSION['id_city'])) {
-                                                                        $id_province = $_SESSION['id_city']['province'];
-                                                                    } else {
-                                                                        $id_province = 'default_status';
-                                                                    }
-                                                                    // เพิ่มเงื่อนไขตรวจสอบค่า IsActive
-                                                                    if ($person["IsActive"] == 0 && $person["province"] == $id_province) {
-                                                                        ?>
-                                                                        <tr id="<?php echo $person["id"]; ?>">
-                                                                            <td><input type="checkbox" class="checkbox" name="idc[]"
-                                                                                    value="<?php echo $person["id"]; ?>"></td>
-                                                                            <td>
-                                                                                <?php echo $counter; ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php echo $person["firstname"]; ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php echo $person["lastname"]; ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php echo $person["status"]; ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php echo $person["province"]; ?>
-                                                                            </td>
-                                                                            <td>
-                                                                                <?php echo $person["department"]; ?>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <?php
-                                                                        $counter++;
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                // ถ้าไม่มีข้อมูล
-                                                                ?>
-                                                                <tr>
-                                                                    <td colspan="7">ยังไม่รายชื่อ</td>
-                                                                </tr>
-                                                                <?php
-                                                            }
-                                                            ?>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" id="add-data"
-                                                        class="btn btn-success">ADD</button>
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-dismiss="modal">Close</button>
+                                                <div class="col-md-6 px-1 px-md-5">
+                                                    <div class="form-group">
+                                                        <label for="lastname">นามสกุล <span
+                                                                style="color: red;">*</span></label>
+                                                        <input type="text" class="form-control" name="lastname"
+                                                            id="lastname" placeholder="นามสกุล" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="customFile">รูปโปรไฟล์ <span
+                                                                style="color: red;">*</span></label>
+                                                        <div class="custom-file mb-2">
+                                                            <input name="image" type="file" class="custom-file-input"
+                                                                id="customFile" accept="image/*" required>
+                                                            <label class="custom-file-label"
+                                                                for="customFile">เลือกรูปภาพ</label>
+                                                        </div>
+                                                        <a href="../../assets/images/template-profile.psd"
+                                                            target="_blank" class="mt-4"><i
+                                                                class=" fa-regular fa-circle-down fa-xl ml-2"></i>
+                                                            ดาวโหลด
+                                                            template-profile</a>
+                                                        <p for="" style="font-size: 12px; color: red;"
+                                                            class="mt-2 mb-1">*
+                                                            ขนาดไฟล์ภาพไม่เกิน 5 MB</p>
+                                                        <p for="" style="font-size: 12px; color: red;">*
+                                                            ขนาดของรูป สูง : 1280px - กว้าง : 900px</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <table id="logs" name="select_all_d"
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
+                                                name="submit">บันทึกข้อมูล</button>
+                                        </div>
+                                    </form>
+                                    <hr class="mb-4" >
+                                    <table id="logs" name="select_all_d mt-5"
                                         class="table table table-striped table-hover mt-4 " width="100%"
                                         style="color: black">
                                     </table>
@@ -337,22 +228,19 @@ while ($rowe = $sql->fetch(PDO::FETCH_ASSOC)) {
                         item.firstname !== null &&
                         item.lastname !== null
                     ) {
-                        const displayValue = item.events_name || item.area_name;
-
                         const deleteButton = item.IsActive === 1
                             ? `<button type="button" class="btn btn-danger" id="delete-${index}" data-id="${item.id}" data-index="${index}">
                         <i class="far fa-trash-alt"></i> ลบ
-                    </button>`
+                        </button>`
                             : `<button type="button" class="btn btn-danger" id="delete-${index}" data-id="${item.id}" data-index="${index}" disabled>
                         <i class="far fa-trash-alt"></i> ลบ
-                    </button>`;
+                        </button>`;
 
                         tableData.push([
                             ++index,
                             item.firstname,
                             item.lastname,
                             item.status,
-                            displayValue, // Display either events_name or area_name
                             `<span class="badge badge-success" style="width: 70px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 13px">เรียร้อย</span>`,
                             `<div class="btn-group" role="group">
                     ${deleteButton}
@@ -381,14 +269,12 @@ while ($rowe = $sql->fetch(PDO::FETCH_ASSOC)) {
             function initDataTables(tableData) {
                 var table = $("#logs").DataTable({
                     data: tableData,
-                    searching: false,
                     ordering: false,
                     columns: [
                         { title: "ลำดับ", className: "align-middle", orderable: false },
                         { title: "ชื่อจริง", className: "align-middle", orderable: false },
                         { title: "นามสกุล", className: "align-middle", orderable: false },
                         { title: "ตำแหน่ง", className: "align-middle", orderable: false },
-                        { title: "อีเว้นท์", className: "align-middle", orderable: false },
                         { title: "สถานะ", className: "align-middle", orderable: false },
                         { title: "จัดการ", className: "align-middle", orderable: false },
                     ],
@@ -412,6 +298,7 @@ while ($rowe = $sql->fetch(PDO::FETCH_ASSOC)) {
                         info: "แสดงหน้า _PAGE_ จาก _PAGES_",
                         infoEmpty: "ยังไม่มีรายชื่อ",
                         infoFiltered: "(filtered from _MAX_ total records)",
+                        search: "ค้นหา",
                         paginate: {
                             previous: "ก่อนหน้านี้",
                             next: "หน้าต่อไป",

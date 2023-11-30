@@ -37,11 +37,6 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4">
-                                    <!-- <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-outline-info ml-auto" id="adButton">
-                                            Ad
-                                        </button>
-                                    </div> -->
                                     <h4>
                                         <i class="fa-solid fa-user-plus"></i>
                                         เพิ่มข้อมูลรายชื่อ
@@ -61,9 +56,15 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="form-group">
                                                     <label for="status">ตำแหน่ง <span
                                                             style="color: red;">*</span></label>
+                                                    <input type="text" class="form-control" name="status" id="status"
+                                                        placeholder="ตำแหน่ง" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="identity">สถานะ <span
+                                                            style="color: red;">*</span></label>
 
-                                                    <select class="form-control" name="status" id="status" required>
-                                                        <option value disabled selected>ระบุตำแหน่ง</option>
+                                                    <select class="form-control" name="identity" id="identity" required>
+                                                        <option value disabled selected>เลือกสถานะ</option>
                                                         <?php foreach ($row as $status): ?>
                                                             <?php if ($status['status'] !== null): ?>
                                                                 <option data-status="<?php echo $status['status']; ?>">
@@ -71,32 +72,7 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                                 </option>
                                                             <?php endif; ?>
                                                         <?php endforeach; ?>
-
-                                                        <option id="other">อื่นๆ</option>
                                                     </select>
-                                                    <input type="text" class="form-control" name="other_status"
-                                                        id="other_status" style="display: none;"
-                                                        placeholder="ระบุตำแหน่ง">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="department">ฝ่าย <span
-                                                            style="color: red;">*</span></label>
-                                                    <select class="form-control" name="department" id="department"
-                                                        required>
-                                                        <option value disabled selected>เลือกฝ่าย</option>
-                                                        <?php foreach ($row as $department): ?>
-                                                            <?php if ($department['department'] !== null): ?>
-                                                                <option
-                                                                    data-department="<?php echo $department['department']; ?>">
-                                                                    <?php echo $department['department']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                        <option value="อื่นๆ">อื่นๆ</option>
-                                                    </select>
-                                                    <input type="text" class="form-control" name="other_department"
-                                                        id="other_department" style="display: none;"
-                                                        placeholder="เลือกฝ่าย">
                                                 </div>
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
@@ -131,9 +107,7 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                         <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
                                             name="submit">บันทึกข้อมูล</button>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -211,33 +185,6 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
             };
             reader.readAsDataURL(file);
         });
-
-        function switeStatus() {
-            var select = document.getElementById('status');
-            var otherStatusInput = document.getElementById('other_status');
-
-
-            if (select.value === 'อื่นๆ') {
-                otherStatusInput.style.display = 'block';
-            } else {
-                otherStatusInput.style.display = 'none';
-            }
-        }
-        function switedepartment() {
-            var select = document.getElementById('department');
-            var otherStatusInput = document.getElementById('other_department');
-
-
-            if (select.value === 'อื่นๆ') {
-                otherStatusInput.style.display = 'block';
-            } else {
-                otherStatusInput.style.display = 'none';
-            }
-        }
-
-        document.getElementById('department').addEventListener('change', switedepartment);
-        document.getElementById('status').addEventListener('change', switeStatus);
-
 
         $(function () {
             $('#formData').on('submit', function (e) {

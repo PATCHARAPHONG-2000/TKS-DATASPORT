@@ -5,12 +5,12 @@ require_once('../authen.php');
 $Database = new Database();
 $conn = $Database->connect();
 
-$id = $_GET['id'];
 
 $sql = $conn->prepare("SELECT * FROM data_id");
 $sql->execute();
 $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+$id = $_GET['id'];
 $params = array('id' => $id);
 $selectbyidUser = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
 $selectbyidUser->execute($params);
@@ -59,67 +59,24 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                         <div class="row">
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="firstname">ชื่อจริง</label>
+                                                    <label for="firstname">ชื่อ</label>
                                                     <input type="text" class="form-control" name="firstname"
-                                                        id="firstname" placeholder="ชื่อจริง"
+                                                        id="firstname" placeholder="ชื่อ"
                                                         value="<?php echo $row['firstname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="status">ตำแหน่ง</label>
-                                                    <select class="form-control" name="status" id="status">
-                                                        <option value="" disabled selected>ระบุตำแหน่ง</option>
-                                                        <?php
-
-                                                        foreach ($statuss as $status) {
-                                                            $selected = ($status == $row['status']) ? "selected" : "";
-                                                            echo "<option value='$status' $selected>$status</option>";
-                                                        }
-
-                                                        ?>
-                                                        <?php foreach ($rows as $status): ?>
-                                                            <?php if ($status['status'] !== null): ?>
-
-                                                                <?php
-                                                                $selectedstatus = ($row['status'] == $status['status']) ? "selected" : "";
-                                                                ?>
-                                                                <option value="<?php echo $status['status']; ?>" <?php echo $selectedstatus; ?>>
-                                                                    <?php echo $status['status']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                        <option id="other" value="อื่นๆ">อื่นๆ</option>
-                                                    </select>
-                                                    <input type="text" class="form-control" name="other_status"
-                                                        id="other_status" style="display: none;"
-                                                        placeholder="ระบุตำแหน่ง">
+                                                    <input type="text" class="form-control" name="status" id="status"
+                                                        placeholder="ตำแหน่ง" value="<?php echo $row['status'] ?>">
                                                 </div>
-
 
                                                 <div class="form-group">
                                                     <label for="province">จังหวัด</label>
                                                     <select class="form-control" disabled name="province" id="province">
-                                                        <option value="" disabled selected>เลือกจังหวัด</option>
+                                                        <option value="" disabled selected></option>
                                                         <?php
-
-                                                        foreach ($statuss as $province) {
-                                                            $selected = ($province == $row['province']) ? "selected" : "";
-                                                            echo "<option value='$province' $selected>$province</option>";
-                                                        }
-
+                                                        echo "<option value='{$row['province']}' selected>{$row['province']}</option>";
                                                         ?>
-                                                        <?php foreach ($rows as $province): ?>
-                                                            <?php if ($province['province'] !== null): ?>
-
-                                                                <?php
-                                                                $selectedprovince = ($row['province'] == $province['province']) ? "selected" : "";
-                                                                ?>
-                                                                <option disabled value="<?php echo $province['province']; ?>"
-                                                                    <?php echo $selectedprovince; ?>>
-                                                                    <?php echo $province['province']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-
                                                     </select>
                                                 </div>
                                             </div>
@@ -133,34 +90,22 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="department">ฝ่าย</label>
-                                                    <select class="form-control" name="department" id="department">
-                                                        <option value disabled selected>เลือกฝ่าย</option>
+                                                    <label for="identity">จังหวัด</label>
+                                                    <select class="form-control" name="identity" id="identity">
+                                                        <option value="" selected></option>
                                                         <?php
+                                                        // แสดง name_status จาก query ข้อมูล personnel
+                                                        echo "<option value='{$row['name_status']}' selected>{$row['name_status']}</option>";
 
-                                                        foreach ($statuss as $department) {
-                                                            $selected = ($department == $row['department']) ? "selected" : "";
-                                                            echo "<option value='$department' $selected>$department</option>";
+                                                        // แสดงตัวเลือก status จาก query ข้อมูล data_id
+                                                        foreach ($rows as $name_status) {
+                                                            if ($name_status['status'] !== null) {
+                                                                $selectedname_status = ($row['status'] == $name_status['status']) ? "selected" : "";
+                                                                echo "<option value='{$name_status['status']}' {$selectedname_status}>{$name_status['status']}</option>";
+                                                            }
                                                         }
-
                                                         ?>
-                                                        <?php foreach ($rows as $department): ?>
-                                                            <?php if ($department['department'] !== null): ?>
-
-                                                                <?php
-                                                                $selecteddepartment = ($row['department'] == $department['department']) ? "selected" : "";
-                                                                ?>
-                                                                <option value="<?php echo $department['department']; ?>" <?php echo $selecteddepartment; ?>>
-                                                                    <?php echo $department['department']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                        <option id="อื่นๆ" value="อื่นๆ">อื่นๆ</option>
-
                                                     </select>
-                                                    <input type="text" class="form-control" name="other_department"
-                                                        id="other_department" style="display: none;"
-                                                        placeholder="เลือกฝ่าย">
                                                 </div>
 
                                                 <div class="form-group">
@@ -179,9 +124,7 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                         ขนาดไฟล์ภาพไม่เกิน 5 MB</p>
                                                     <p for="" style="font-size: 12px; color: red;">*
                                                         ขนาดของรูป สูง : 1280px - กว้าง : 900px</p>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -268,32 +211,6 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
             reader.readAsDataURL(file);
         });
 
-        function switeStatus() {
-            var select = document.getElementById('status');
-            var otherStatusInput = document.getElementById('other_status');
-
-
-            if (select.value === 'อื่นๆ') {
-                otherStatusInput.style.display = 'block';
-            } else {
-                otherStatusInput.style.display = 'none';
-            }
-        }
-        function switedepartment() {
-            var select = document.getElementById('department');
-            var otherStatusInput = document.getElementById('other_department');
-
-
-            if (select.value === 'อื่นๆ') {
-                otherStatusInput.style.display = 'block';
-            } else {
-                otherStatusInput.style.display = 'none';
-            }
-        }
-
-        document.getElementById('department').addEventListener('change', switedepartment);
-        document.getElementById('status').addEventListener('change', switeStatus);
-        
         $(function () {
             $("#formData").submit(function (e) {
                 e.preventDefault();
@@ -323,7 +240,7 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                             icon: 'error',
                             title: 'Update failed. Please try again.',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1000
                         }).then((result) => {
                             location.assign('../dahbord/');
                         });

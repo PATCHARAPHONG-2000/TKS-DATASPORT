@@ -16,16 +16,9 @@ if (isset($_SESSION['id_city'])) {
     $id_province = 'default_status';
 }
 
-$adm = $conn->prepare("SELECT * FROM data_admin");
-$adm->execute();
-$rowr = $adm->fetch(PDO::FETCH_ASSOC);
-
-$sql = $conn->prepare("SELECT * FROM data_id");
-$sql->execute();
-$rowe = $sql->fetch(PDO::FETCH_ASSOC);
-
-
 ?>
+
+</style>
 
 <link rel="stylesheet" href="../../assets/css/sidebar.css">
 <!-- Navbar -->
@@ -41,17 +34,6 @@ $rowe = $sql->fetch(PDO::FETCH_ASSOC);
         </li>
     </ul>
 
-    <!-- <div class="ms-auto order-1 notification">
-        <div class="position-relative">
-            <a href="#" id="notificationIcon" data-toggle="modal" data-target="#notificationModal">
-                <i class="nav-icon fa-regular ms-auto fa-bell fa-2x">
-                    <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
-                        5
-                    </span>
-                </i>
-            </a>
-        </div>
-    </div> -->
 
 </nav>
 
@@ -99,11 +81,8 @@ $rowe = $sql->fetch(PDO::FETCH_ASSOC);
     </a>
 
     <div class="sidebar mt-3 pb-3 mb-3 d-flex">
-
         <nav class="mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
                 <li class="nav-item">
                     <a href="../dashbord/" class="nav-link ">
                         <i class="nav-icon fa-solid fa-users"></i>
@@ -116,86 +95,32 @@ $rowe = $sql->fetch(PDO::FETCH_ASSOC);
                         <p>เพิ่มข้อมูลรายชื่อ</p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="" class="nav-link ">
+                        <i class="fa-solid fa-clipboard-user fa-xl mr-2"></i>
+                        <p>สร้าง AD Card</p>
+                    </a>
+                </li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header mt" style="font-size: 1.10rem;">จัดการแข่งขัน</li>
                 <li class="nav-item">
                     <a href="../events/" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-calendar-check"></i>
-                        <p>Events</p>
+                        <i class="nav-icon fa-solid fa-user-plus"></i>
+                        <p>เพิ่มฝ่ายจัดงาน</p>
                     </a>
                 </li>
-
-            
-
-                <!-- <li class="nav-item">
-                        <a href="../taekwondo/ad" class="nav-link ">
-                            <i class="nav-icon fa-solid fa-user-plus"></i>
-                            <p>สร้าง AD Card</p>
-                        </a>
-                </li> -->
-
-                <i class=""></i>
-
-
-                <li class="nav-header">บัญชีของเรา</li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header mt-1" style="font-size: 1.10rem;">บัญชีของเรา</li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" onclick="confirmLogout()">
                         <i class="nav-icon  fa-solid fa-arrow-right-from-bracket"></i>
                         <p>ออกจากระบบ</p>
                     </a>
                 </li>
-
-
-                <!-- <?php if ($_SESSION['AD_ADMIN'] == 'taekwondo' || $_SESSION['AD_ADMIN'] == 'superadmin') { ?>
-                    <li class="nav-item">
-                        <a href="../taekwondo/" class="nav-link <?php echo isActive('manager') ?>">
-                            <i class="nav-icon fa-solid fa-users"></i>
-                            <p>ตรวจสอบรายชื่อ</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../taekwondo/form-create" class="nav-link <?php echo isActive('manager') ?>">
-                            <i class="nav-icon fa-solid fa-user-plus"></i>
-                            <p>เพิ่มข้อมูลรายชื่อ</p>
-                        </a>
-                    </li>
-                   
-                   
-                <?php } ?>
-                <?php if ($_SESSION['AD_ADMIN'] == 'karate' || $_SESSION['AD_ADMIN'] == 'superadmin') { ?>
-                    <li class="nav-item">
-                        <a href="../karate/" class="nav-link <?php echo isActive('members') ?>">
-                            <i class="nav-icon fa-solid fa-users"></i>
-                            <p>KARATE</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../karate/form-create" class="nav-link <?php echo isActive('manager') ?>">
-                            <i class="nav-icon fa-solid fa-user-plus"></i>
-                            <p>เพิ่มพนักงาน</p>
-                        </a>
-                    </li>
-                    
-                <?php } ?>
-                <?php if ($_SESSION['AD_ADMIN'] == 'gymnastic' || $_SESSION['AD_ADMIN'] == 'superadmin') { ?>
-                    <li class="nav-item">
-                        <a href="../gymnastic/" class="nav-link <?php echo isActive('products') ?>">
-                            <i class="nav-icon fa-solid fa-user-pen"></i>
-                            <p>GYMNASTIC</p>
-                        </a>
-                    </li>
-                <?php } ?>
-                <i class=""></i>
-
-
-                <li class="nav-header">บัญชีของเรา</li>
-                <li class="nav-item">
-                    <a id="logout" class="nav-link" onclick="confirmLogout()">
-                        <i class="nav-icon  fa-solid fa-arrow-right-from-bracket"></i>
-                        <p>ออกจากระบบ</p>
-                    </a>
-                </li> -->
-
-
             </ul>
         </nav>
     </div>

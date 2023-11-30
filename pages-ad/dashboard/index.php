@@ -81,8 +81,7 @@ require_once('../authen.php');
                             ++index,
                             item.firstname,
                             item.lastname,
-                            item.name_status,
-                            item.department,
+                            item.status,
                             `<img src="../../service/uploads/${item.image}" alt="Image" style="max-width: 50px;">`,
                             `<div class="btn-group" role="group">
                                 <a href="../manager/form-edit.php?id=${item.id}" type="button" class="btn btn-warning text-white">
@@ -119,7 +118,6 @@ require_once('../authen.php');
                         { title: "ชื่อจริง", className: "align-middle", orderable: true },
                         { title: "นามสกุล", className: "align-middle", orderable: true },
                         { title: "ตำแหน่ง", className: "align-middle", orderable: false },
-                        { title: "ฝ่าย", className: "align-middle", orderable: false },
                         { title: "รูปภาพ", className: "align-middle", orderable: false },
                         { title: "จัดการ", className: "align-middle", orderable: false }
                     ],
@@ -137,17 +135,7 @@ require_once('../authen.php');
                             select1.append('<option value="' + d + '">' + d + '</option>');
                         });
                     
-                        var column5 = this.api().column(4);
-                        $(column5.header()).html('<label for="position">ฝ่าย: </label>');
-                        var select2 = $('<select id="position" class="dashbordadmin-province-select form-control custom-select"><option value="">ทั้งหมด</option></select>')
-                            .appendTo($(column5.header()))
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                                column5.search(val ? '^' + val + '$' : '', true, false).draw();
-                            });
-                        column5.data().unique().each(function (d) {
-                            select2.append('<option value="' + d + '">' + d + '</option>');
-                        });
+                        
                     },
 
                     responsive: {

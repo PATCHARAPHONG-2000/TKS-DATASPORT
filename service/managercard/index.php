@@ -31,11 +31,6 @@ if ($connect) {
                     'status' => $row['status'],
                     'name_status' => $row['name_status'],
                     'province' => $row['province'],
-                    'department' => $row['department'],
-                    'events_name' => $row['events_name'],
-                    'events' => $row['events'],
-                    'area_name' => $row['area_name'],
-                    'areas' => $row['areas'],
                     'image' => $row['image'],
                     'IsActive'=> $row['IsActive'],
                     
