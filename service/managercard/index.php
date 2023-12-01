@@ -29,7 +29,7 @@ if ($connect) {
                     'firstname' => $row['firstname'],
                     'lastname' => $row['lastname'],
                     'status' => $row['status'],
-                    'name_status' => $row['name_status'],
+                    'sector' => $row['sector'],
                     'province' => $row['province'],
                     'image' => $row['image'],
                     'IsActive'=> $row['IsActive'],

@@ -4,9 +4,6 @@ require_once('../authen.php');
 $Database = new Database();
 $conn = $Database->connect();
 
-$sql = $conn->prepare("SELECT * FROM data_id");
-$sql->execute();
-$row = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,21 +56,6 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                     <input type="text" class="form-control" name="status" id="status"
                                                         placeholder="ตำแหน่ง" required>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="identity">สถานะ <span
-                                                            style="color: red;">*</span></label>
-
-                                                    <select class="form-control" name="identity" id="identity" required>
-                                                        <option value disabled selected>เลือกสถานะ</option>
-                                                        <?php foreach ($row as $status): ?>
-                                                            <?php if ($status['status'] !== null): ?>
-                                                                <option data-status="<?php echo $status['status']; ?>">
-                                                                    <?php echo $status['status']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
@@ -91,14 +73,8 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                         <label class="custom-file-label"
                                                             for="customFile">เลือกรูปภาพ</label>
                                                     </div>
-                                                    <a href="../../assets/images/template-profile.psd" target="_blank"
-                                                        class="mt-4"><i
-                                                            class=" fa-regular fa-circle-down fa-xl ml-2"></i> ดาวโหลด
-                                                        template-profile</a>
                                                     <p for="" style="font-size: 12px; color: red;" class="mt-2 mb-1">*
                                                         ขนาดไฟล์ภาพไม่เกิน 5 MB</p>
-                                                    <p for="" style="font-size: 12px; color: red;">*
-                                                        ขนาดของรูป สูง : 1280px - กว้าง : 900px</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,59 +108,35 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
             const file = event.target.files[0];
 
             if (!file) {
-                fileInput.value = '';
-                customFileLabel.html('');
+                resetFileInput();
                 return;
             }
-
             const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
 
             // Check image size
             if (file.size > maxSizeInBytes) {
-                Swal.fire({
-                    title: "ขนาดไฟล์เกิน",
-                    text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
-                    icon: "warning",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // รีเซ็ต input ที่ใช้เลือกรูปภาพ
-                        fileInput.value = '';
-                        customFileLabel.html('');
-                    }
-                });
+                showFileSizeExceedWarning();
+                resetFileInput();
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const img = new Image();
-                img.src = e.target.result;
-
-                img.onload = function () {
-                    const width = this.width;
-                    const height = this.height;
-
-                    if (width !== 900 || height !== 1280) {
-                        Swal.fire({
-                            title: "ขนาดภาพไม่ถูกต้อง",
-                            text: "ขนาดรูปภาพไม่ถูกต้อง กรุณาเลือกรูปภาพที่มีขนาดของรูป สูง: 1280px - กว้าง: 900px",
-                            icon: "warning",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // รีเซ็ต input ที่ใช้เลือกรูปภาพ
-                                fileInput.value = '';
-                                customFileLabel.html('');
-                            }
-                        });
-                    } else {
-                        // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
-                        const fileName = fileInput.value.split('\\').pop();
-                        customFileLabel.html(fileName);
-                    }
-                };
-            };
-            reader.readAsDataURL(file);
+            // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
+            const fileName = file.name;
+            customFileLabel.html(fileName);
         });
+
+        function resetFileInput() {
+            fileInput.value = '';
+            customFileLabel.html('');
+        }
+
+        function showFileSizeExceedWarning() {
+            Swal.fire({
+                title: "ขนาดไฟล์เกิน",
+                text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
+                icon: "warning",
+            });
+        }
 
         $(function () {
             $('#formData').on('submit', function (e) {
@@ -201,9 +153,9 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                         icon: 'success',
                         confirmButtonText: 'ตกลง',
                         showConfirmButton: false,
-                        timer: 500
+                        // timer: 500
                     }).then((result) => {
-                        location.assign('./form-create');
+                        // location.assign('./form-create');
                     });
                 })
             });

@@ -1,5 +1,4 @@
 <?php
-
 header('Content-Type: application/json');
 require_once '../connect.php';
 
@@ -31,6 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['AD_USERNAME'] = $user['users'];
                 $_SESSION['AD_ROLE'] = $user['Role'];
 
+                $kkt = [
+                    'KKTP1',
+                    'KKTP2',
+                    'KKTP3',
+                    'KKTP4',
+                    'KKTP5',
+                ];
+
+                $KKTP = in_array($user['Role'], $kkt);
 
                 if ($_SESSION['AD_ROLE'] == 'superadmin') {
                     echo json_encode([
@@ -40,10 +48,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         'message' => 'Admin Login Success'
                     ]);
                     exit();
-                } else if ($_SESSION['AD_ROLE']) {
-
+                } else if ($KKTP) {
                     $_SESSION['id_city'] = [
                         'province' => $user['province'],
+                        'users' => $user['users'],
+                        'area' => $user['area'],
+                        
+                    ];
+
+                    echo json_encode([
+                        'status' => true,
+                        'users' => 'userad',
+                        'role' => 'users',
+                        'province' => $_SESSION['id_city']['province'],
+                        'message' => 'Admin Login Success'
+                    ]);
+                    exit();
+                } else if ($_SESSION['AD_ROLE']) {
+                    $_SESSION['id_city'] = [
+                        'province' => $user['province'],
+                        'users' => $user['users'],
+                        'area' => $user['area'],
                     ];
 
                     echo json_encode([
@@ -67,5 +92,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respondError("An error occurred. Please try again later.");
     }
 }
-
-
+?>

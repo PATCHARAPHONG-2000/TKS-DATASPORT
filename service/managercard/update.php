@@ -45,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
     $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
     $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
-    $name_status = $_POST['identity'];
     $province = filter_input(INPUT_POST, 'province', FILTER_SANITIZE_STRING);
 
     $sql = "UPDATE `personnel` SET ";
@@ -68,9 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!empty($firstname) || !empty($lastname)) {
             $sql .= ", ";
         }
-        $sql .= "`status` = :status, `name_status` = :name_status";
+        $sql .= "`status` = :status";
         $params[':status'] = $status;
-        $params[':name_status'] = $name_status;
 
     }
 

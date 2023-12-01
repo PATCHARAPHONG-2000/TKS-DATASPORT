@@ -3,23 +3,14 @@
 require_once('../authen.php');
 $Database = new Database();
 $conn = $Database->connect();
-
-
-
     // ดึง ID จาก URL
     $id = $_GET['id'];
-
-    // เตรียมคำสั่ง SQL สำหรับดึงข้อมูลจากฐานข้อมูลตาม ID
     $selectById = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
     $selectById->bindParam(':id', $id);
     $selectById->execute();
 
     // ดึงข้อมูลแบบ associative array
     $info = $selectById->fetch(PDO::FETCH_ASSOC);
-
-    
-
-
 ?>
 
 <!DOCTYPE html>
@@ -90,12 +81,6 @@ $conn = $Database->connect();
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <p class="col-xl-3 text-muted">สถานะ :</p>
-                                                        <div class="col-xl-9">
-                                                            <span class="badge badge-success" style="width: 30px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 13px" ><?php echo $info['name_status'] ?></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-3">
                                                         <p class="col-xl-3 text-muted">จังหวัด :</p>
                                                         <div class="col-xl-9">
                                                             <p><?php echo $info['province'] ?></p>
@@ -111,7 +96,6 @@ $conn = $Database->connect();
                                                 </div>
                                             </div>
                                         </div>
-                                       
                                         <div class="col-lg-5">
                                             <div class="card shadow-sm">
                                                 <div class="card-header pt-4">

@@ -6,10 +6,6 @@ $Database = new Database();
 $conn = $Database->connect();
 
 
-$sql = $conn->prepare("SELECT * FROM data_id");
-$sql->execute();
-$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
-
 $id = $_GET['id'];
 $params = array('id' => $id);
 $selectbyidUser = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
@@ -88,26 +84,6 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                         id="lastname" placeholder="นามสกุล"
                                                         value="<?php echo $row['lastname'] ?>">
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label for="identity">จังหวัด</label>
-                                                    <select class="form-control" name="identity" id="identity">
-                                                        <option value="" selected></option>
-                                                        <?php
-                                                        // แสดง name_status จาก query ข้อมูล personnel
-                                                        echo "<option value='{$row['name_status']}' selected>{$row['name_status']}</option>";
-
-                                                        // แสดงตัวเลือก status จาก query ข้อมูล data_id
-                                                        foreach ($rows as $name_status) {
-                                                            if ($name_status['status'] !== null) {
-                                                                $selectedname_status = ($row['status'] == $name_status['status']) ? "selected" : "";
-                                                                echo "<option value='{$name_status['status']}' {$selectedname_status}>{$name_status['status']}</option>";
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-
                                                 <div class="form-group">
                                                     <label for="customFile">รูปโปรไฟล์</label>
                                                     <div class="custom-file mb-2 ">
@@ -116,25 +92,17 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                         <label class="custom-file-label"
                                                             for="customFile">เลือกรูปภาพ</label>
                                                     </div>
-                                                    <a href="../../assets/images/template-profile.psd" target="_blank"
-                                                        class="mt-4"><i
-                                                            class=" fa-regular fa-circle-down fa-xl ml-2"></i> ดาวโหลด
-                                                        template-profile</a>
                                                     <p for="" style="font-size: 12px; color: red;" class="mt-2 mb-1">*
                                                         ขนาดไฟล์ภาพไม่เกิน 5 MB</p>
-                                                    <p for="" style="font-size: 12px; color: red;">*
-                                                        ขนาดของรูป สูง : 1280px - กว้าง : 900px</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
                                             name="submit">บันทึกข้อมูล</button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -157,8 +125,7 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
             const file = event.target.files[0];
 
             if (!file) {
-                fileInput.value = '';
-                customFileLabel.html('');
+                resetFileInput();
                 return;
             }
 
@@ -166,50 +133,30 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
 
             // Check image size
             if (file.size > maxSizeInBytes) {
-                Swal.fire({
-                    title: "ขนาดไฟล์เกิน",
-                    text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
-                    icon: "warning",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // รีเซ็ต input ที่ใช้เลือกรูปภาพ
-                        fileInput.value = '';
-                        customFileLabel.html('');
-                    }
-                });
+                showFileSizeExceedWarning();
+                resetFileInput();
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const img = new Image();
-                img.src = e.target.result;
-
-                img.onload = function () {
-                    const width = this.width;
-                    const height = this.height;
-
-                    if (width !== 900 || height !== 1280) {
-                        Swal.fire({
-                            title: "ขนาดภาพไม่ถูกต้อง",
-                            text: "ขนาดรูปภาพไม่ถูกต้อง กรุณาเลือกรูปภาพที่มีขนาดของรูป สูง: 1280px - กว้าง: 900px",
-                            icon: "warning",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // รีเซ็ต input ที่ใช้เลือกรูปภาพ
-                                fileInput.value = '';
-                                customFileLabel.html('');
-                            }
-                        });
-                    } else {
-                        // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
-                        const fileName = fileInput.value.split('\\').pop();
-                        customFileLabel.html(fileName);
-                    }
-                };
-            };
-            reader.readAsDataURL(file);
+            // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
+            const fileName = file.name;
+            customFileLabel.html(fileName);
         });
+
+        function resetFileInput() {
+            fileInput.value = '';
+            customFileLabel.html('');
+        }
+
+        function showFileSizeExceedWarning() {
+            Swal.fire({
+                title: "ขนาดไฟล์เกิน",
+                text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
+                icon: "warning",
+            });
+        }
+
+
 
         $(function () {
             $("#formData").submit(function (e) {

@@ -36,42 +36,6 @@ if (isset($_SESSION['id_city'])) {
 
 
 </nav>
-
-<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Add your notification content here -->
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Notification 1</h5>
-                        <p class="card-text">Some details about notification 1.</p>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Notification 2</h5>
-                        <p class="card-text">Some details about notification 2.</p>
-                    </div>
-                </div>
-
-                <!-- Add more cards as needed -->
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-info elevation-4">
 
@@ -83,34 +47,38 @@ if (isset($_SESSION['id_city'])) {
     <div class="sidebar mt-3 pb-3 mb-3 d-flex">
         <nav class="mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
                 <li class="nav-item">
                     <a href="../dashbord/" class="nav-link ">
                         <i class="nav-icon fa-solid fa-users"></i>
                         <p>ตรวจสอบรายชื่อ</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="../manager/form-create" class="nav-link ">
                         <i class="nav-icon fa-solid fa-user-plus"></i>
                         <p>เพิ่มข้อมูลรายชื่อ</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link ">
-                        <i class="fa-solid fa-clipboard-user fa-xl mr-2"></i>
-                        <p>สร้าง AD Card</p>
-                    </a>
-                </li>
-                <div>
-                    <hr>
-                </div>
-                <li class="nav-header mt" style="font-size: 1.10rem;">จัดการแข่งขัน</li>
-                <li class="nav-item">
-                    <a href="../events/" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-user-plus"></i>
-                        <p>เพิ่มฝ่ายจัดงาน</p>
-                    </a>
-                </li>
+
+                <!--
+                         <div>
+                        <hr>
+                    </div> 
+                        <li class="nav-header mt" style="font-size: 1.10rem;">จัดการแข่งขัน</li>
+                    <li class="nav-item">
+                        <a href="../events/" class="nav-link ">
+                            <i class="nav-icon fa-solid fa-user-plus"></i>
+                            <p>เพิ่มฝ่ายจัดงาน</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../events/adcard.php" class="nav-link ">
+                            <i class="fa-solid fa-clipboard-user fa-xl mr-2"></i>
+                            <p>สร้าง AD Card</p>
+                        </a>
+                    </li> -->
                 <div>
                     <hr>
                 </div>
