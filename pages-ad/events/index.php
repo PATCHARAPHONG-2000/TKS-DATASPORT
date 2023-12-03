@@ -5,11 +5,6 @@ require_once('../authen.php');
 $Database = new Database();
 $conn = $Database->connect();
 
-$sql = $conn->prepare("SELECT * FROM data_id");
-$sql->execute();
-
-$adm = $conn->prepare("SELECT * FROM data_admin");
-$adm->execute();
 
 $per = $conn->prepare("SELECT * FROM personnel");
 $per->execute();

@@ -153,9 +153,9 @@ $conn = $Database->connect();
                         icon: 'success',
                         confirmButtonText: 'ตกลง',
                         showConfirmButton: false,
-                        // timer: 500
+                        timer: 500
                     }).then((result) => {
-                        // location.assign('./form-create');
+                        location.assign('./form-create');
                     });
                 })
             });

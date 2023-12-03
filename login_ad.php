@@ -53,7 +53,16 @@ require_once 'service/connect.php';
                     <li><a class="nav-link scrollto" href="index.php#about">About</a></li>
                     <li><a class="nav-link scrollto " href="index.php#portfolio">Photo</a></li>
                     <li><a class="nav-link scrollto" href="index.php#contact">Contact</a></li>
-                    <li><a class="nav-link scrollto" href="login">Login</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Login
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
+                            <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+                        </div>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

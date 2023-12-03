@@ -81,14 +81,17 @@ require_once('../authen.php');
                             item.firstname,
                             item.lastname,
                             item.status,
-                            item.department,
+                            `<img src="../../service/uploads/${item.image}" alt="Image" style="max-width: 50px;">`,
                             `<div class="btn-group" role="group">
-                                <a href="form-edit.php?id=${item.id}" type="button" class="btn btn-warning text-white">
+                                <a href="../manager/form-edit.php?id=${item.id}" type="button" class="btn btn-warning text-white">
                                     <i class="far fa-edit"></i> แก้ไข
                                 </a>
                                 <button type="button" class="btn btn-danger" id="delete" data-id="${item.id}" data-index="${index}">
                                     <i class="far fa-trash-alt"></i> ลบ
                                 </button>
+                                <a href="info.php?id=${item.id}" class="btn btn-info" >
+                                        <i class="fas fa-search"></i> ดูข้อมูล
+                                    </a>
                             </div>`
                         ]);
                     }
@@ -107,23 +110,28 @@ require_once('../authen.php');
             function initDataTables(tableData) {
                 var table = $('#logs').DataTable({
                     data: tableData,
+                    order:false,
                     
                     columns: [
-                        { title: "ลำดับ", className: "align-middle", orderable: true },
-                        { title: "จังหวัดที่อยู่", className: "align-middle", orderable: true },
-                        { title: "ชื่อจริง", className: "align-middle", orderable: true },
-                        { title: "นามสกุล", className: "align-middle", orderable: true },
+                        { title: "ลำดับ", className: "align-middle", orderable: false },
+                        { title: "จังหวัดที่อยู่", className: "align-middle", orderable: false },
+                        { title: "ชื่อจริง", className: "align-middle", orderable: false },
+                        { title: "นามสกุล", className: "align-middle", orderable: false },
                         { title: "ตำแหน่ง", className: "align-middle", orderable: false },
-                        { title: "ฝ่าย", className: "align-middle", orderable: false }, // ย่อคอลัมน์ "ฝ่าย"
-                        // { title: "สถานะ", className: "align-middle", orderable: false },
+                        { title: "รูป", className: "align-middle", orderable: false },
                         { title: "จัดการ", className: "align-middle", orderable: false }
+                    ],
+                    columnDefs: [
+                        { width: '20%', targets: 4 }, 
+                        { width: '10%', targets: 5 }, 
+                        { width: '15%', targets: 6 } 
                     ],
 
                     initComplete: function () {
-                        // Filter for "ตำแหน่ง" column
-                        var column1 = this.api().column(4);
-                        $(column1.header()).html('<label for="positionFilter">ตำแหน่ง: </label>');
-                        var select1 = $('<select id="positionFilter" class="dashbordsuper-province-select form-control custom-select"><option value=""></option></select>')
+                        // Filter for "จังหวัด" column
+                        var column1 = this.api().column(1);
+                        $(column1.header()).html('<label for="posi">จังหวัด: </label>');
+                        var select1 = $('<select id="posi" class="form-control custom-select"><option value="">ทั้งหมด</option></select>')
                             .appendTo($(column1.header()))
                             .on('change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -132,32 +140,19 @@ require_once('../authen.php');
                         column1.data().unique().sort().each(function (d) {
                             select1.append('<option value="' + d + '">' + d + '</option>');
                         });
-
-                        // Filter for "ฝ่าย" column
-                        var column2 = this.api().column(5);
-                        $(column2.header()).html('<label for="position">ฝ่าย: </label>');
-                        var select2 = $('<select id="position" class="dashbordsuper-province-select form-control custom-select"><option value=""></option></select>')
-                            .appendTo($(column2.header()))
+                        // Filter for "ตำแหน่ง" column
+                        var column4 = this.api().column(4);
+                        $(column4.header()).html('<label for="positionFilter">ตำแหน่ง: </label>');
+                        var select4 = $('<select id="positionFilter" class="dashbordsuper-province-select form-control custom-select"><option value="">ทั้งหมด</option></select>')
+                            .appendTo($(column4.header()))
                             .on('change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                                column2.search(val ? '^' + val + '$' : '', true, false).draw();
+                                column4.search(val ? '^' + val + '$' : '', true, false).draw();
                             });
-                        column2.data().unique().sort().each(function (d) {
-                            select2.append('<option value="' + d + '">' + d + '</option>');
+                        column4.data().unique().sort().each(function (d) {
+                            select4.append('<option value="' + d + '">' + d + '</option>');
                         });
-
-                        // // Filter for "จังหวัด" column
-                        // var column3 = this.api().column(6);
-                        // $(column3.header()).html('<label for="posi">จังหวัด: </label>');
-                        // var select3 = $('<select id="posi" class="form-control custom-select"><option value=""></option></select>')
-                        //     .appendTo($(column3.header()))
-                        //     .on('change', function () {
-                        //         var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                        //         column3.search(val ? '^' + val + '$' : '', true, false).draw();
-                        //     });
-                        // column3.data().unique().sort().each(function (d) {
-                        //     select3.append('<option value="' + d + '">' + d + '</option>');
-                        // });
+                        
                     },
 
                     responsive: {

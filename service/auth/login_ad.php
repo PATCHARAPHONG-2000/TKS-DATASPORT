@@ -41,10 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $KKTP = in_array($user['Role'], $kkt);
 
                 if ($_SESSION['AD_ROLE'] == 'superadmin') {
+                    $_SESSION['id_city'] = [
+                        'province' => $user['province'],
+                        'users' => $user['users'],
+                        'area' => $user['area'],
+                    ];
                     echo json_encode([
                         'status' => true,
                         'users' => 'userad',
                         'role' => 'superadmin',
+                        'province' => $_SESSION['id_city']['province'],
                         'message' => 'Admin Login Success'
                     ]);
                     exit();
@@ -86,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 respondError('Incorrect password');
             }
         } else {
-            respondError('User not found in the system. Please enter a valid username.');
+            respondError('ไม่มี Username นี้ในระบบ');
         }
     } catch (PDOException $e) {
         respondError("An error occurred. Please try again later.");

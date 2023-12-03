@@ -1,3 +1,16 @@
+<?php
+
+require_once __DIR__ . '/service/connect.php';
+
+$Database = new Database();
+$conn = $Database->connect();
+
+$sql = $conn->prepare("SELECT * FROM data_all WHERE IsActive = 1");
+$sql->execute();
+$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,10 +27,7 @@
   <link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -55,16 +65,14 @@
           <li><a class="nav-link scrollto" href="#events">Events</a></li>
           <li><a class="nav-link scrollto " href="#photo">Photo</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <!-- <li><a class="nav-link scrollto" href="login">Login</a></li> -->
-          <!-- ตัวอย่างเพิ่ม dropdown -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Login
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="login" style="color:black" >TKS DATASPORT</a>
-              <a class="dropdown-item" href="login_ad" style="color:black" >AD Card</a>
+              <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
+              <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
             </div>
           </li>
 
@@ -196,23 +204,31 @@
 
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
+            <?php
+            foreach ($rows as $key => $row) {
+              $class = ($key == 0) ? 'active' : ''; // กำหนด class 'active' สำหรับรูปแรก
+              echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="' . $key . '" class="' . $class . '"></button>';
+            }
+            ?>
           </div>
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="assets/images/baner.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="assets/images/baner.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="assets/images/baner.png" class="d-block w-100" alt="...">
-            </div>
+            <?php
+            foreach ($rows as $key => $row) {
+              $class = ($key == 0) ? 'active' : ''; // กำหนด class 'active' สำหรับรูปแรก
+              $users = $row['users'];
+
+              // เช็คว่า users มีรูปแบบ email หรือไม่
+              if (filter_var($users, FILTER_VALIDATE_EMAIL)) {
+                $loginPage = 'login.php';
+              } else {
+                $loginPage = 'login_ad.php';
+              }
+
+              echo '<div class="carousel-item ' . $class . '">';
+              echo '<a href="' . $loginPage . '"><img src="service/superadmin/uploads/' . $row['image'] . '" class="d-block w-100" alt="..."></a>';
+              echo '</div>';
+            }
+            ?>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
             data-bs-slide="prev">
@@ -225,9 +241,11 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-      </div>
 
-    </section><!-- End Services Section -->
+
+
+
+    </section>
 
     <!-- ======= Cta Section ======= -->
     <section id="cta" class="cta">
@@ -428,8 +446,6 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>

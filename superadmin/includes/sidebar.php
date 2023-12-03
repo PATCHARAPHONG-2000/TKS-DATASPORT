@@ -49,32 +49,38 @@ function isActive($data)
 
 
                 <li class="nav-item">
-                    <a href="../dashbord/" class="nav-link <?php echo isActive('manager') ?>">
+                    <a href="../dashbord/" class="nav-link">
                         <i class="nav-icon fa-regular fa-address-card"></i>
                         <p>รายชื่อทั้งหมด</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="../list-events/" class="nav-link <?php echo isActive('manager') ?>">
-                        <i class="nav-icon fa-regular fa-address-card"></i>
-                        <p>รายชื่อที่เข้าร่วมอีเว้นท์</p>
+                    <a href="../adcard/" class="nav-link">
+                    <i class="nav-icon fa-solid fa-id-card-clip"></i>
+                        <p>สร้าง AD Card</p>
                     </a>
                 </li>
 
-                <li class="nav-item">
+
+                <!-- <li class="nav-item">
                     <a href="../manager/form-create" class="nav-link <?php echo isActive('manager') ?>">
                         <i class="nav-icon fa-solid fa-user-plus"></i>
                         <p>เพิ่มข้อมูลรายชื่อ</p>
                     </a>
-                </li>
+                </li> -->
+
+                <div>
+                    <hr>
+                </div>
 
                 <li class="nav-item">
-                    <a href="../events/" class="nav-link <?php echo isActive('manager') ?>">
-                        <i class="nav-icon fa-regular fa-calendar-plus"></i>
-                        <p>กำหนดการอีเว้นท์</p>
+                    <a href="../setting/image.php" class="nav-link" >
+                    <i class=" fa-solid fa-gear fa-xl mr-2"></i>
+                        <p>Setting</p>
                     </a>
                 </li>
+
 
                 <li class="nav-header">บัญชีของเรา</li>
                 <li class="nav-item">
@@ -108,7 +114,5 @@ function isActive($data)
             }
         });
     }
-
-
 
 </script>

@@ -1,19 +1,9 @@
 <?php
-
-/**
- *  Page Manager Create Admin
- * 
- * @link https://appzstory.dev
- * @author Yothin Sapsamran (Jame AppzStory Studio)
- */
 require_once('../authen.php');
 
 $Database = new Database();
 $conn = $Database->connect();
 
-$sql = $conn->prepare("SELECT * FROM data_id");
-$sql->execute();
-$row = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +11,9 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>จัดการผู้ดูแลระบบ | TKS SPORTDATA</title>
+    <title>
+        <?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?> | TKS SPORTDATA
+    </title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
     <!-- stylesheet -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
@@ -42,80 +34,28 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4">
-                                    <!-- <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-outline-info ml-auto" id="adButton">
-                                            Ad
-                                        </button>
-                                    </div> -->
                                     <h4>
-                                        <i class="fas fa-user-cog"></i>
+                                        <i class="fa-solid fa-user-plus"></i>
                                         เพิ่มข้อมูลรายชื่อ
                                     </h4>
-
                                 </div>
                                 <form id="formData" id="originalCardBody" enctype="multipart/form-data">
                                     <!-- <form action="../../service/managercard/create.php" method="post" enctype="multipart/form-data" > -->
                                     <div class="card-body" id="originalCardBody">
                                         <div class="row">
                                             <div class="col-md-6 px-1 px-md-5">
-
-
-
                                                 <div class="form-group">
                                                     <label for="firstname">ชื่อ <span
                                                             style="color: red;">*</span></label>
                                                     <input type="text" class="form-control" name="firstname"
                                                         id="firstname" placeholder="ชื่อ" required>
                                                 </div>
-
                                                 <div class="form-group">
                                                     <label for="status">ตำแหน่ง <span
                                                             style="color: red;">*</span></label>
-
-                                                    <select class="form-control" name="status" id="status" required>
-                                                        <option value disabled selected>ระบุตำแหน่ง</option>
-                                                        <?php foreach ($row as $status): ?>
-                                                            <?php if ($status['status'] !== null): ?>
-                                                                <option data-status="<?php echo $status['status']; ?>">
-                                                                    <?php echo $status['status']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-
-                                                        <option id="other">อื่นๆ</option>
-                                                    </select>
-                                                    <input type="text" class="form-control" name="other_status"
-                                                        id="other_status" style="display: none;"
-                                                        placeholder="ระบุตำแหน่ง">
+                                                    <input type="text" class="form-control" name="status" id="status"
+                                                        placeholder="ตำแหน่ง" required>
                                                 </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="province">จังหวัดที่อยู่<span
-                                                            style="color: red;">*</span></label>
-                                                    <select class="form-control" name="province" id="province"
-                                                        required>
-                                                        <option value="" disabled selected>เลือกจังหวัด</option>
-                                                        <?php foreach ($row as $province): ?>
-                                                            <?php if ($province['province'] !== null): ?>
-                                                                <option data-province="<?php echo $province['province']; ?>">
-                                                                    <?php echo $province['province']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="isActive">สถานะการสมัคร Events</label>
-                                                    <select class="form-control" name="isActive" id="isActive" required>
-                                                        <option value disabled selected>เลือกสถานะการสมัคร</option>
-                                                        <option value="ยังไม่สมัคร">ยังไม่สมัคร</option>
-                                                        <option value="สมัครเรียบร้อย">สมัครเรียบร้อย</option>
-                                                    </select>
-                                                </div>
-
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
@@ -124,42 +64,18 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                     <input type="text" class="form-control" name="lastname"
                                                         id="lastname" placeholder="นามสกุล" required>
                                                 </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="department">ฝ่าย <span
-                                                            style="color: red;">*</span></label>
-                                                    <select class="form-control" name="department" id="department"
-                                                        required>
-                                                        <option value disabled selected>เลือกฝ่าย</option>
-                                                        <?php foreach ($row as $department): ?>
-                                                            <?php if ($department['department'] !== null): ?>
-                                                                <option
-                                                                    data-department="<?php echo $department['department']; ?>">
-                                                                    <?php echo $department['department']; ?>
-                                                                </option>
-                                                            <?php endif; ?>
-                                                        <?php endforeach; ?>
-                                                        <option value="อื่นๆ">อื่นๆ</option>
-                                                    </select>
-                                                    <input type="text" class="form-control" name="other_department"
-                                                        id="other_department" style="display: none;"
-                                                        placeholder="เลือกฝ่าย">
-                                                </div>
-
                                                 <div class="form-group">
                                                     <label for="customFile">รูปโปรไฟล์ <span
                                                             style="color: red;">*</span></label>
-                                                    <div class="custom-file">
+                                                    <div class="custom-file mb-2">
                                                         <input name="image" type="file" class="custom-file-input"
                                                             id="customFile" accept="image/*" required>
                                                         <label class="custom-file-label"
                                                             for="customFile">เลือกรูปภาพ</label>
                                                     </div>
+                                                    <p for="" style="font-size: 12px; color: red;" class="mt-2 mb-1">*
+                                                        ขนาดไฟล์ภาพไม่เกิน 5 MB</p>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -167,9 +83,7 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                         <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
                                             name="submit">บันทึกข้อมูล</button>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -179,7 +93,6 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         <?php include_once('../includes/footer.php') ?>
     </div>
 
-
     <!-- SCRIPTS -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -188,46 +101,49 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 
     <script>
-        function switeStatus() {
-            var select = document.getElementById('status');
-            var otherStatusInput = document.getElementById('other_status');
+        const fileInput = document.getElementById('customFile');
+        const customFileLabel = $(fileInput).next('.custom-file-label');
 
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
 
-            if (select.value === 'อื่นๆ') {
-                otherStatusInput.style.display = 'block';
-            } else {
-                otherStatusInput.style.display = 'none';
+            if (!file) {
+                resetFileInput();
+                return;
             }
-        }
-        function switedepartment() {
-            var select = document.getElementById('department');
-            var otherStatusInput = document.getElementById('other_department');
+            const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
 
-
-            if (select.value === 'อื่นๆ') {
-                otherStatusInput.style.display = 'block';
-            } else {
-                otherStatusInput.style.display = 'none';
+            // Check image size
+            if (file.size > maxSizeInBytes) {
+                showFileSizeExceedWarning();
+                resetFileInput();
+                return;
             }
-        }
 
-        document.getElementById('department').addEventListener('change', switedepartment);
-        document.getElementById('status').addEventListener('change', switeStatus);
-
-        $(document).ready(function () {
-            // เมื่อไฟล์ถูกเลือก อัปเดตป้ายกำกับด้วยชื่อไฟล์
-            $('#customFile').on('change', function () {
-                var fileName = $(this).val().split('\\').pop();
-                $(this).next('.custom-file-label').html(fileName);
-            });
+            // เมื่อไฟล์ถูกต้อง อัปเดตป้ายกำกับด้วยชื่อไฟล์
+            const fileName = file.name;
+            customFileLabel.html(fileName);
         });
+
+        function resetFileInput() {
+            fileInput.value = '';
+            customFileLabel.html('');
+        }
+
+        function showFileSizeExceedWarning() {
+            Swal.fire({
+                title: "ขนาดไฟล์เกิน",
+                text: "ขนาดไฟล์ภาพของคุณเกิน 5 MB กรุณาเลือกใหม่",
+                icon: "warning",
+            });
+        }
 
         $(function () {
             $('#formData').on('submit', function (e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: '../../service/superadmin/create.php',
+                    url: '../../service/managercard/create.php',
                     data: new FormData(this),
                     contentType: false,
                     processData: false
@@ -236,10 +152,10 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                         text: 'เพิ่มข้อมูลเรียบร้อย',
                         icon: 'success',
                         confirmButtonText: 'ตกลง',
-                        // showConfirmButton: false,
-                        // timer: 500
+                        showConfirmButton: false,
+                        timer: 500
                     }).then((result) => {
-                        // location.assign('./form-create');
+                        location.assign('./form-create');
                     });
                 })
             });

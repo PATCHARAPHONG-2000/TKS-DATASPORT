@@ -44,6 +44,7 @@ require_once('../authen.php');
                                         <i class="fa-regular fa-address-card"></i>
                                         ตวจสอบรายชื่อ
                                     </h4>
+                                    
                                 </div>
                                 <div class="card-body">
                                     <table id="logs" class="table table table-striped table-hover" width="100%">
@@ -92,7 +93,7 @@ require_once('../authen.php');
                                 </a>
                                 
                             </div>`
-                            
+
                         ]);
                     }
                 })
@@ -133,8 +134,8 @@ require_once('../authen.php');
                         column3.data().unique().each(function (d) {
                             select1.append('<option value="' + d + '">' + d + '</option>');
                         });
-                    
-                        
+
+
                     },
 
                     responsive: {
