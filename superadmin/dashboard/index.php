@@ -115,16 +115,19 @@ require_once('../authen.php');
                     columns: [
                         { title: "ลำดับ", className: "align-middle", orderable: false },
                         { title: "จังหวัดที่อยู่", className: "align-middle", orderable: false },
-                        { title: "ชื่อจริง", className: "align-middle", orderable: false },
+                        { title: "ชื่อ", className: "align-middle", orderable: false },
                         { title: "นามสกุล", className: "align-middle", orderable: false },
                         { title: "ตำแหน่ง", className: "align-middle", orderable: false },
                         { title: "รูป", className: "align-middle", orderable: false },
                         { title: "จัดการ", className: "align-middle", orderable: false }
                     ],
                     columnDefs: [
+                        { width: '20%', targets: 1 }, 
+                        { width: '15%', targets: 2 }, 
+                        { width: '15%', targets: 3 }, 
                         { width: '20%', targets: 4 }, 
                         { width: '10%', targets: 5 }, 
-                        { width: '15%', targets: 6 } 
+                        { width: '15%', targets: 6 }
                     ],
 
                     initComplete: function () {

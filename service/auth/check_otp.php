@@ -1,6 +1,5 @@
 <?php
-// session_start();
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 require_once '../connect.php';
 
 $Database = new Database();

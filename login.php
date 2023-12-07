@@ -63,6 +63,7 @@ $conn = $Database->connect();
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
               <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+              <a class="dropdown-item" href="login_score" style="color:black">Score</a>
             </div>
           </li>
         </ul>

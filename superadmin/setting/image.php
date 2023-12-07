@@ -60,7 +60,7 @@ require_once('../authen.php');
                                             </div>
                                             <div class="col-md-6 px-1 px-md-5">
                                                 <div class="form-group">
-                                                    <label for="customFile">รูปโปรไฟล์ <span
+                                                    <label for="customFile">รูปแบร์นเนอร์ <span
                                                             style="color: red;">*</span></label>
                                                     <div class="custom-file mb-2 mt-2">
                                                         <input name="image" type="file" class="custom-file-input"
@@ -77,7 +77,6 @@ require_once('../authen.php');
                                             <button type="submit" class="btn btn-primary btn-block mx-auto w-50"
                                                 name="submit">บันทึกข้อมูล</button>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
@@ -159,7 +158,7 @@ require_once('../authen.php');
                             ${item.id ? 'checked' : ''} data-toggle="toggle" data-on="เผยแพร่" 
                             data-off="ปิด" data-onstyle="success" data-style="ios">`,
                             `<div class="btn-group" role="group">
-                                <a href="../manager/form-edit.php?id=${item.id}" type="button" class="btn btn-warning text-white">
+                                <a href="../manager/form-edit-image.php?id=${item.id}" type="button" class="btn btn-warning text-white">
                                     <i class="far fa-edit"></i> แก้ไข
                                 </a>
                                 <button type="button" class="btn btn-danger" id="delete" data-id="${item.id}" data-index="${index}">

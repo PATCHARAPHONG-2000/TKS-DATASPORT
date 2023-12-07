@@ -1,6 +1,12 @@
 <?php
-
 require_once('../authen.php');
+
+$Database = new Database();
+$conn = $Database->connect();
+
+$sql = $conn->prepare("SELECT * FROM setting");
+$sql->execute();
+$row = $sql->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -76,8 +82,12 @@ require_once('../authen.php');
                 url: "../../service/managercard/index"
             }).done(function (data) {
                 let tableData = []
+                let allowEdit = <?php echo (isset($row['name']) && $row['name'] == 'btn-add_data' && isset($row['IsActive']) && $row['IsActive'] == 1) ? 'true' : 'false'; ?>;
+
                 data.response.forEach(function (item, index) {
                     if (item.firstname !== null && item.lastname !== null) {
+                        let editLink = allowEdit ? createEditLink(item.id) : '';
+                        let deleteButton = allowEdit ? createDeleteButton(item.id): '';
                         tableData.push([
                             ++index,
                             item.firstname,
@@ -85,15 +95,11 @@ require_once('../authen.php');
                             item.status,
                             `<img src="../../service/uploads/${item.image}" alt="Image" style="max-width: 50px;">`,
                             `<div class="btn-group" role="group">
-                                <a href="../manager/form-edit.php?id=${item.id}" type="button" class="btn btn-warning text-white">
-                                    <i class="far fa-edit"></i> แก้ไข
+                                ${editLink}
+                                ${deleteButton}
+                                <a href="info.php?id=${item.id}" class="btn btn-info">
+                                    <i class="fas fa-search"></i> ดูข้อมูล
                                 </a>
-                                <button type="button" class="btn btn-danger" id="delete" data-id="${item.id}" data-index="${index}">
-                                    <i class="far fa-trash-alt"></i> ลบ
-                                </button>
-                                <a href="info.php?id=${item.id}" class="btn btn-info" >
-                                        <i class="fas fa-search"></i> ดูข้อมูล
-                                    </a>
                             </div>`
                         ]);
                     }
@@ -108,6 +114,21 @@ require_once('../authen.php');
                     location.assign('../dashboard')
                 })
             })
+
+            function createEditLink(id) {
+                return `<a href="../manager/form-edit.php?id=${id}" type="button" class="btn btn-warning text-white">
+                <i class="far fa-edit"></i> แก้ไข
+                </a>`;
+            }
+
+            function createDeleteButton(id) {
+                let deleteButton = `
+                <button type="button" class="btn btn-danger" id="delete" data-id="${id}">
+                    <i class="far fa-trash-alt"></i> ลบ
+                </button>`;
+                return deleteButton;
+            }
+
 
             function initDataTables(tableData) {
                 var table = $('#logs').DataTable({
@@ -135,8 +156,8 @@ require_once('../authen.php');
                         column3.data().unique().each(function (d) {
                             select1.append('<option value="' + d + '">' + d + '</option>');
                         });
-                    
-                        
+
+
                     },
 
                     responsive: {

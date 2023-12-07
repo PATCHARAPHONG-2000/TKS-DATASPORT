@@ -11,60 +11,139 @@
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="../../assets/css/adminlte.min.css">
+    <style>
+        body {
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .line {
+            margin-top: 2rem;
+            max-height: 30rem;
+            border-right: 0.2px solid black;
+            height: 100vh;
+        }
+
+        .container {
+            display: flow-root;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .score {
+            /* margin-top: 18%; */
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <div class="container mt-5">
-        <h2 class="mb-4">Enter 7 Numbers</h2>
+    <div class="container">
+        <div class="text-center mt-5">
+            <h1>KARATE</h1>
+        </div>
+        <div class="row score">
+            <div class="col-md-5 mt-5 mx-auto" style="background-color: red;">
+                <h2 class="mb-4">Enter 7 Numbers</h2>
 
-        <form>
-            <div class="mb-3">
-                <label for="number1" class="form-label">JUDGE 1 :</label>
-                <input type="number" class="form-control" id="number1" tabindex="1"
-                    onkeydown="moveToNextInput(event, 'number2')">
-            </div>
-            <div class="mb-3">
-                <label for="number2" class="form-label">JUDGE 2 :</label>
-                <input type="number" class="form-control" id="number2" tabindex="2"
-                    onkeydown="moveToNextInput(event, 'number3')">
-            </div>
-            <div class="mb-3">
-                <label for="number3" class="form-label">JUDGE 3 :</label>
-                <input type="number" class="form-control" id="number3" tabindex="3"
-                    onkeydown="moveToNextInput(event, 'number4')">
-            </div>
-            <div class="mb-3">
-                <label for="number4" class="form-label">JUDGE 4 :</label>
-                <input type="number" class="form-control" id="number4" tabindex="4"
-                    onkeydown="moveToNextInput(event, 'number5')">
-            </div>
-            <div class="mb-3">
-                <label for="number5" class="form-label">JUDGE 5 :</label>
-                <input type="number" class="form-control" id="number5" tabindex="5"
-                    onkeydown="moveToNextInput(event, 'number6')">
-            </div>
-            <div class="mb-3">
-                <label for="number6" class="form-label">JUDGE 6 :</label>
-                <input type="number" class="form-control" id="number6" tabindex="6"
-                    onkeydown="moveToNextInput(event, 'number7')">
-            </div>
-            <div class="mb-3">
-                <label for="number7" class="form-label">JUDGE 7 :</label>
-                <input type="number" class="form-control" id="number7" tabindex="7"
-                    onkeydown="moveToNextInput(event, 'number1')">
+                <form>
+                    <div class="mb-3">
+                        <label for="number1" class="form-label">JUDGE 1 :</label>
+                        <input type="number" class="form-control" id="number1" tabindex="1"
+                            onkeydown="moveToNextInput(event, 'number2')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number2" class="form-label">JUDGE 2 :</label>
+                        <input type="number" class="form-control" id="number2" tabindex="2"
+                            onkeydown="moveToNextInput(event, 'number3')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number3" class="form-label">JUDGE 3 :</label>
+                        <input type="number" class="form-control" id="number3" tabindex="3"
+                            onkeydown="moveToNextInput(event, 'number4')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number4" class="form-label">JUDGE 4 :</label>
+                        <input type="number" class="form-control" id="number4" tabindex="4"
+                            onkeydown="moveToNextInput(event, 'number5')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number5" class="form-label">JUDGE 5 :</label>
+                        <input type="number" class="form-control" id="number5" tabindex="5"
+                            onkeydown="moveToNextInput(event, 'number6')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number6" class="form-label">JUDGE 6 :</label>
+                        <input type="number" class="form-control" id="number6" tabindex="6"
+                            onkeydown="moveToNextInput(event, 'number7')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number7" class="form-label">JUDGE 7 :</label>
+                        <input type="number" class="form-control" id="number7" tabindex="7"
+                            onkeydown="moveToNextInput(event, 'number1')">
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="checkAndSum()">SUM</button>
+                    <button type="button" class="btn btn-secondary ml-2" onclick="clearInputs()">Clear</button>
+                </form>
             </div>
 
-            <button type="button" class="btn btn-primary" onclick="checkAndSum()">SUM</button>
-            <button type="button" class="btn btn-secondary ml-2" onclick="clearInputs()">Clear</button>
-        </form>
+            <span class="line mx-auto"></span>
+
+            <div class="col-md-5 mt-5 mx-auto" style="background-color: blue;">
+                <h2 class="mb-4">Enter 7 Numbers</h2>
+
+                <form>
+                    <div class="mb-3">
+                        <label for="number1" class="form-label">JUDGE 1 :</label>
+                        <input type="number" class="form-control" id="number1" tabindex="1"
+                            onkeydown="moveToNextInput(event, 'number2')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number2" class="form-label">JUDGE 2 :</label>
+                        <input type="number" class="form-control" id="number2" tabindex="2"
+                            onkeydown="moveToNextInput(event, 'number3')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number3" class="form-label">JUDGE 3 :</label>
+                        <input type="number" class="form-control" id="number3" tabindex="3"
+                            onkeydown="moveToNextInput(event, 'number4')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number4" class="form-label">JUDGE 4 :</label>
+                        <input type="number" class="form-control" id="number4" tabindex="4"
+                            onkeydown="moveToNextInput(event, 'number5')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number5" class="form-label">JUDGE 5 :</label>
+                        <input type="number" class="form-control" id="number5" tabindex="5"
+                            onkeydown="moveToNextInput(event, 'number6')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number6" class="form-label">JUDGE 6 :</label>
+                        <input type="number" class="form-control" id="number6" tabindex="6"
+                            onkeydown="moveToNextInput(event, 'number7')">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number7" class="form-label">JUDGE 7 :</label>
+                        <input type="number" class="form-control" id="number7" tabindex="7"
+                            onkeydown="moveToNextInput(event, 'number1')">
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="checkAndSum()">SUM</button>
+                    <button type="button" class="btn btn-secondary ml-2" onclick="clearInputs()">Clear</button>
+                </form>
+            </div>
+        </div>
 
         <div id="result" class="mt-4"></div>
         <a href="../score/" target="_blank">เปิดหน้า Score</a>
     </div>
 
-     <!-- scripts -->
-     <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- scripts -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
@@ -128,7 +207,7 @@
 
             // เพิ่มข้อมูลคะแนนใน local storage
             localStorage.setItem('finalSum', finalSum.toFixed(2));
-           
+
         }
 
         function clearInputs() {

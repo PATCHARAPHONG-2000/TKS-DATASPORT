@@ -1,4 +1,4 @@
-<?php
+<!--<?php
 
 require_once('../authen.php');
 
@@ -18,7 +18,7 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SUPERADMIN || TKS SPORTDATA</title>
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/favicon.ico">
-    <!-- stylesheet -->
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
@@ -26,8 +26,6 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/datatable.css">
 
-
-    <!-- Datatables -->
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -37,18 +35,13 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
     <div class="wrapper">
         <?php include_once('../includes/sidebar.php') ?>
         <div class="content-wrapper pt-3">
-            <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
                             <div class="card shadow">
                                 <div class="card-header border-0 pt-4">
-                                    <!-- <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-outline-info ml-auto" id="adButton">
-                                            Ad
-                                        </button>
-                                    </div> -->
+                
                                     <h4>
                                         <i class="fa-regular fa-calendar"></i>
                                         กำหนดการอีเว้นท์ 
@@ -57,7 +50,7 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
                                 <form id="formData" id="originalCardBody" enctype="multipart/form-data">
-                                    <!-- <form action="../../service/managercard/create.php" method="post" enctype="multipart/form-data" > -->
+                                     <form action="../../service/managercard/create.php" method="post" enctype="multipart/form-data" > 
                                     <div class="card-body" id="originalCardBody">
                                         <div class="row">
                                             <div class="col-md-6 px-1 px-md-5">
@@ -81,11 +74,11 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                             <?php endif; ?>
                                                         <?php endforeach; ?>
 
-                                                        <!-- <option value="อื่นๆ">อื่นๆ</option> -->
+                                                         <option value="อื่นๆ">อื่นๆ</option> 
                                                     </select>
-                                                    <!-- <input type="text" class="form-control" name="other_events"
+                                                     <input type="text" class="form-control" name="other_events"
                                                         id="other_events" style="display: none;"
-                                                        placeholder="เลือกฝ่าย"> -->
+                                                        placeholder="เลือกฝ่าย"> 
                                                 </div> 
 
                                                 <div class="form-group">
@@ -106,10 +99,10 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
                                                                 </option>
                                                             <?php endif; ?>
                                                         <?php endforeach; ?>
-                                                        <!-- <option value="อื่นๆ">อื่นๆ</option> -->
+                                                         <option value="อื่นๆ">อื่นๆ</option> 
                                                     </select>
-                                                    <!-- <input type="text" class="form-control" name="other_area"
-                                                        id="other_area" style="display: none;" placeholder="เลือกฝ่าย"> -->
+                                                     <input type="text" class="form-control" name="other_area"
+                                                        id="other_area" style="display: none;" placeholder="เลือกฝ่าย"> 
                                                 </div>
 
                                                 <div class="form-group ">
@@ -139,12 +132,12 @@ $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         <?php include_once('../includes/footer.php') ?>
     </div>
 
-    <!-- scripts -->
+     scripts 
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="../../assets/js/adminlte.min.js"></script>
-    <!-- datatables -->
+     datatables 
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

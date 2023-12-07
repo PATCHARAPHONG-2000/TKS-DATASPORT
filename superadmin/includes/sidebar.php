@@ -1,16 +1,15 @@
 <?php
-/**
- * Main Sidebar
- * 
- * @link https://appzstory.dev
- * @author Yothin Sapsamran (Jame AppzStory Studio)
- */
-function isActive($data)
-{
+function isActive($data) {
     $array = explode('/', $_SERVER['REQUEST_URI']);
     $key = array_search("pages", $array);
     $name = $array[$key + 1];
     return $name === $data ? 'active' : '';
+}
+
+if(isset($_SESSION['id_city'])) {
+    $id_province = $_SESSION['id_city']['province'];
+} else {
+    $id_province = 'default_status';
 }
 ?>
 <!-- Navbar -->
@@ -21,18 +20,8 @@ function isActive($data)
         </li>
         <li class="nav-item text-center">
             <p class="nav-link" style="font-size: 20px; font-weight: bold; color: black; " disabled>
-                SUPER ADMIN
+                <?php echo isset($_SESSION['id_city']['province']) ? $_SESSION['id_city']['province'] : ''; ?>
             </p>
-    </ul>
-
-    <ul class="navbar-nav ml-auto ">
-        <li class="nav-item d-md-none d-block">
-            <a href="../dashboard/">
-                <img src="../../assets/images/logo.png" alt="Admin Logo" width="50px" class="img-circle elevation-3">
-                <span class="font-weight-light pl-1">TKS SPORTDATA</span>
-            </a>
-        </li>
-
     </ul>
 </nav>
 <!-- Main Sidebar Container -->
@@ -43,53 +32,56 @@ function isActive($data)
     </a>
 
     <div class="sidebar mt-3 pb-3 mb-3 d-flex">
-
         <nav class="mt-3 pb-3 mb-3 d-flex">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
                 <li class="nav-item">
                     <a href="../dashbord/" class="nav-link">
                         <i class="nav-icon fa-regular fa-address-card"></i>
                         <p>รายชื่อทั้งหมด</p>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a href="../adcard/" class="nav-link">
-                    <i class="nav-icon fa-solid fa-id-card-clip"></i>
+                    <a href="../adcard/sector" class="nav-link">
+                        <i class="nav-icon fa-solid fa-id-card-clip"></i>
                         <p>สร้าง AD Card</p>
                     </a>
                 </li>
-
-
-                <!-- <li class="nav-item">
-                    <a href="../manager/form-create" class="nav-link <?php echo isActive('manager') ?>">
-                        <i class="nav-icon fa-solid fa-user-plus"></i>
-                        <p>เพิ่มข้อมูลรายชื่อ</p>
-                    </a>
-                </li> -->
-
                 <div>
                     <hr>
                 </div>
-
+                <li class="nav-header mt-1" style="font-size: 1.10rem;">ฝ่ายกีฬา</li>
                 <li class="nav-item">
-                    <a href="../setting/image.php" class="nav-link" >
-                    <i class=" fa-solid fa-gear fa-xl mr-2"></i>
-                        <p>Setting</p>
+                    <a href="../sport/index.php" class="nav-link">
+                        <i class="nav-icon fa-regular fa-address-card"></i>
+                        <p>รายชื่อทั้งหมด</p>
                     </a>
                 </li>
-
-
-                <li class="nav-header">บัญชีของเรา</li>
+                <li class="nav-item">
+                    <a href="../adcard/sport" class="nav-link">
+                        <i class="nav-icon fa-solid fa-id-card-clip"></i>
+                        <p>สร้าง AD Card</p>
+                    </a>
+                </li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header mt-1" style="font-size: 1.10rem;">ตั้งค่า</li>
+                <li class="nav-item">
+                    <a href="../setting/image.php" class="nav-link">
+                        <i class="nav-icon fa-solid fa-calendar-plus fa-xl2 mr-2"></i>
+                        <p>เพิ่มแบร์นเนอร์</p>
+                    </a>
+                </li>
+                <div>
+                    <hr>
+                </div>
+                <li class="nav-header mt-1" style="font-size: 1.10rem;">บัญชีของเรา</li>
                 <li class="nav-item">
                     <a id="logout" class="nav-link" onclick="confirmLogout()">
                         <i class="nav-icon  fa-solid fa-arrow-right-from-bracket"></i>
                         <p>ออกจากระบบ</p>
                     </a>
                 </li>
-
             </ul>
         </nav>
     </div>

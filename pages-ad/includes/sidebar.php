@@ -1,28 +1,31 @@
 <?php
-
 $Database = new Database();
 $conn = $Database->connect();
-function isActive($data)
-{
+function isActive($data) {
     $array = explode('/', $_SERVER['REQUEST_URI']);
     $key = array_search("pages", $array);
     $name = $array[$key + 1];
     return $name === $data ? 'active' : '';
 }
 
-if (isset($_SESSION['id_city'])) {
+$sql = $conn->prepare("SELECT * FROM setting");
+$sql->execute();
+$row = $sql->fetch(PDO::FETCH_ASSOC);
+
+if(isset($_SESSION['id_city'])) {
     $id_province = $_SESSION['id_city']['province'];
 } else {
     $id_province = 'default_status';
 }
 
+
 ?>
 
-</style>
 
 <link rel="stylesheet" href="../../assets/css/sidebar.css">
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars fa-2x"></i></a>
@@ -54,31 +57,22 @@ if (isset($_SESSION['id_city'])) {
                         <p>ตรวจสอบรายชื่อ</p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="../manager/form-create" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-user-plus"></i>
-                        <p>เพิ่มข้อมูลรายชื่อ</p>
-                    </a>
-                </li>
-
-                <!--
-                         <div>
-                        <hr>
-                    </div> 
-                        <li class="nav-header mt" style="font-size: 1.10rem;">จัดการแข่งขัน</li>
-                    <li class="nav-item">
-                        <a href="../events/" class="nav-link ">
+                <?php if(isset($row['name']) && $row['name'] == 'btn-add_data' && isset($row['IsActive']) && $row['IsActive'] == 1) { ?>
+                    <li class="nav-item ad-data">
+                        <a href="../manager/form-create" class="nav-link" id="active-link">
                             <i class="nav-icon fa-solid fa-user-plus"></i>
-                            <p>เพิ่มฝ่ายจัดงาน</p>
+                            <p>เพิ่มข้อมูลรายชื่อ</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="../events/adcard.php" class="nav-link ">
-                            <i class="fa-solid fa-clipboard-user fa-xl mr-2"></i>
-                            <p>สร้าง AD Card</p>
+                <?php } else { ?>
+                    <li class="nav-item ad-data">
+                        <a href="#" class="nav-link" style="pointer-events: none; cursor: default; color: gray;"
+                            onclick="return false;">
+                            <i class="nav-icon fa-solid fa-user-plus"></i>
+                            <p>เพิ่มข้อมูลรายชื่อ</p>
                         </a>
-                    </li> -->
+                    </li>
+                <?php } ?>
                 <div>
                     <hr>
                 </div>

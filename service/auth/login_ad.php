@@ -5,13 +5,12 @@ require_once '../connect.php';
 $Database = new Database();
 $conn = $Database->connect();
 
-function respondError($message)
-{
+function respondError($message) {
     echo json_encode(['error' => $message]);
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_SERVER["REQUEST_METHOD"] == "POST") {
     $users = $_POST["user"];
     $password = $_POST["password"];
 
@@ -23,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            if (password_verify($password, $user['password'])) {
+        if($user) {
+            if(password_verify($password, $user['password'])) {
                 // User exists in the users_t table, and the password is correct
                 $_SESSION['AD_ID'] = $user['id'];
                 $_SESSION['AD_USERNAME'] = $user['users'];
@@ -37,10 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'KKTP4',
                     'KKTP5',
                 ];
+                $SP = [
+                    'SPGOLF','SPARCH','SPFTBL','SPFUTS','SPVOLYB','SPTEKB','SPTENN','SPWMNG','SPSTEN','SPTENI','SPBDMT','SPBASK','SPTKWD','SPKADO','SPJUDO',
+                    'SPBRDG','SPSILT','SPAERB','SPCHSS','SPBILR','SPPTNQ','SPESPT','SPKABD','SPWDBL','SPABXN','SPMUTH','SPVOLY','SPHNDL','SPWREST','SPYCHT',
+                    'SPJUDO','SPCYCL','SPWTLF','SPARCH','SPROWG','SPHCKY','SPRUGB','SPFENC','SPMOTC','SPJTSK','SPROLS','SPGYMN','SPFGRS','SPEXTR','SPTRAT','SPDRAU','SPKCKB',
+                ];
 
+                $SPO = in_array($user['Role'], $SP);
                 $KKTP = in_array($user['Role'], $kkt);
 
-                if ($_SESSION['AD_ROLE'] == 'superadmin') {
+                if($_SESSION['AD_ROLE'] == 'superadmin') {
                     $_SESSION['id_city'] = [
                         'province' => $user['province'],
                         'users' => $user['users'],
@@ -54,12 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         'message' => 'Admin Login Success'
                     ]);
                     exit();
-                } else if ($KKTP) {
+                } else if($KKTP) {
                     $_SESSION['id_city'] = [
                         'province' => $user['province'],
                         'users' => $user['users'],
                         'area' => $user['area'],
-                        
                     ];
 
                     echo json_encode([
@@ -70,7 +74,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         'message' => 'Admin Login Success'
                     ]);
                     exit();
-                } else if ($_SESSION['AD_ROLE']) {
+                } else if($SPO) {
+                    $_SESSION['id_city'] = [
+                        'province' => $user['province'],
+                    ];
+
+                    echo json_encode([
+                        'status' => true,
+                        'users' => 'userad',
+                        'role' => 'sport',
+                        'province' => $_SESSION['id_city']['province'],
+                        'message' => 'Admin Login Success'
+                    ]);
+                    exit();
+                } else if($_SESSION['AD_ROLE']) {
                     $_SESSION['id_city'] = [
                         'province' => $user['province'],
                         'users' => $user['users'],

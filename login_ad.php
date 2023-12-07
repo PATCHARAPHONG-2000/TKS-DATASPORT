@@ -61,6 +61,7 @@ require_once 'service/connect.php';
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
                             <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+                            <a class="dropdown-item" href="login_score" style="color:black">Score</a>
                         </div>
                     </li>
                 </ul>
@@ -264,6 +265,29 @@ require_once 'service/connect.php';
                                 if (result.dismiss === Swal.DismissReason.timer) {
                                     // The timer was responsible for closing the alert
                                     location.href = "pages-ad/";
+                                }
+                            });
+                        } else if (resp.role === "sport") {
+                            let timerInterval;
+                            Swal.fire({
+                                title: "กำลังเข้าสู่ระบบ",
+                                html: "กำลังตรวจสอบ <b></b> ข้อมูล.",
+                                timer: 1000,
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent = `${Swal.getTimerLeft()}`;
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.timer) {
+                                    // The timer was responsible for closing the alert
+                                    location.href = "pages-sport/";
                                 }
                             });
                         } else {

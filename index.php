@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/service/connect.php';
+// require __DIR__ . '/wp-blog-header.php';
+require_once __DIR__.'/service/connect.php';
+
 
 $Database = new Database();
 $conn = $Database->connect();
@@ -66,13 +68,14 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           <li><a class="nav-link scrollto " href="#photo">Photo</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            <a class="nav-link scrollto dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Login
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
               <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
+              <a class="dropdown-item" href="login_score" style="color:black">Score</a>
             </div>
           </li>
 
@@ -124,9 +127,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
 
-    <!-- ======= Why Us Section ======= -->
     <section id="why-us" class="why-us">
       <div class="container">
         <div class="row">
@@ -156,9 +158,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           </div>
         </div>
       </div>
-    </section><!-- End Why Us Section -->
+    </section>
 
-    <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients">
       <div class="container" data-aos="zoom-in">
 
@@ -191,9 +192,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
       </div>
-    </section><!-- End Clients Section -->
+    </section>
 
-    <!-- ======= Services Section ======= -->
     <section id="events" class="evests">
       <div class="container">
         <div class="section-title">
@@ -201,31 +201,29 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           <h2>Events</h2>
           <p></p>
         </div>
-
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
             <?php
-            foreach ($rows as $key => $row) {
-              $class = ($key == 0) ? 'active' : ''; // กำหนด class 'active' สำหรับรูปแรก
-              echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="' . $key . '" class="' . $class . '"></button>';
+            foreach($rows as $key => $row) {
+              $class = ($key == 0) ? 'active' : '';
+              echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'.$key.'" class="'.$class.'"></button>';
             }
             ?>
           </div>
           <div class="carousel-inner">
             <?php
-            foreach ($rows as $key => $row) {
-              $class = ($key == 0) ? 'active' : ''; // กำหนด class 'active' สำหรับรูปแรก
+            foreach($rows as $key => $row) {
+              $class = ($key == 0) ? 'active' : '';
               $users = $row['users'];
 
-              // เช็คว่า users มีรูปแบบ email หรือไม่
-              if (filter_var($users, FILTER_VALIDATE_EMAIL)) {
+              if(filter_var($users, FILTER_VALIDATE_EMAIL)) {
                 $loginPage = 'login.php';
               } else {
                 $loginPage = 'login_ad.php';
               }
 
-              echo '<div class="carousel-item ' . $class . '">';
-              echo '<a href="' . $loginPage . '"><img src="service/superadmin/uploads/' . $row['image'] . '" class="d-block w-100" alt="..."></a>';
+              echo '<div class="carousel-item '.$class.'">';
+              echo '<a href="'.$loginPage.'"><img src="service/superadmin/uploads/'.$row['image'].'" class="d-block w-100" alt="..."></a>';
               echo '</div>';
             }
             ?>
@@ -241,10 +239,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-
-
-
-
     </section>
 
     <!-- ======= Cta Section ======= -->
@@ -256,13 +250,11 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           <p>Taekwondo is a Korean martial art, characterized by its emphasis on high,
             fast kicks and spinning kicks,
             and its focus on head-height kicks, jumping and spinning kicks, and fast kicking techniques.</p>
-          <!-- <a class="cta-btn" href="#">Learn More</a> -->
         </div>
 
       </div>
-    </section><!-- End Cta Section -->
+    </section>
 
-    <!-- ======= photo Section ======= -->
     <section id="photo" class="photo">
       <div class="container">
 
@@ -271,7 +263,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           <h2>Photo</h2>
           <p>Photographs capturing the ambiaTTnce of the event</p>
         </div>
-
 
         <div class="row photo-container" data-aos="fade-up" data-aos-delay="150">
 
@@ -337,11 +328,8 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         </div>
       </div>
-    </section><!-- End photo Section -->
+    </section>
 
-
-
-    <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
 
@@ -388,11 +376,10 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
           </div>
         </div>
       </div>
-    </section><!-- End Contact Section -->
+    </section>
 
-  </main><!-- End #main -->
+  </main>
 
-  <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -433,13 +420,12 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
 
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -447,6 +433,43 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/js/main.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5B9B8LF4"></script>
+  <script async src="https://easypdpa.com/api/v2/scripts/easycookies/W5XNO1MV39TX/easycookies.js"></script>
+
+
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments) };
+
+    // ฟังก์ชันของ Consent Mode ของ gtag สำหรับการปิดการใช้งาน Cookie ในตอนเริ่มต้น
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      wait_for_update: 2000,
+    });
+
+    // การตั้งค่าสำหรับการแสดงผล Cookies Popup
+    window.easycookies = {
+      code: 'W5XNO1MV39TX',
+      callback: (cookies) => {
+        /*
+        Callback ฟังก์ชันจะถูกเรียกใช้เมื่อผู้ใช้งานยอมรับหรือปรับเปลี่ยนความยินยอม โดยจะรับ parameter ที่เป็น object ซึ่งประกอบไปด้วยคีย์ต่างๆดังนี้
+        - performance (boolean) -> บ่งบอกว่าผู้ใช้งานได้ยอมรับหรือไม่ยอมรับคุ้กกี้ประเภท Analytics
+        - functionality (boolean) -> บ่งบอกว่าผู้ใช้งานได้ยอมรับหรือไม่ยอมรับคุ้กกี้ประเภท Preference
+        - advertising (boolean) -> บ่งบอกว่าผู้ใช้งานได้ยอมรับหรือไม่ยอมรับคุ้กกี้ประเภท Advertising
+        */
+        // เรียกใช้งานฟังก์ชัน gtag เมื่อผู้ใช้งานยอมรับหรือปรับเปลี่ยนความยินยอม
+        gtag('consent', 'update', { 'analytics_storage': cookies.performance ? 'granted' : 'denied' });
+      },
+    }
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'GTM-5B9B8LF4');
+  </script> -->
+
+
 
 </body>
 

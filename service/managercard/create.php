@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respondError('Invalid or unreadable image format. Please upload a JPEG, PNG.');
     }
 
-
     try {
         $conn->beginTransaction();
 

@@ -10,7 +10,7 @@ $id = $_GET['id'];
 $params = array('id' => $id);
 $selectbyidUser = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
 $selectbyidUser->execute($params);
-$row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
+$rowe = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -58,12 +58,12 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                     <label for="firstname">ชื่อ</label>
                                                     <input type="text" class="form-control" name="firstname"
                                                         id="firstname" placeholder="ชื่อ"
-                                                        value="<?php echo $row['firstname'] ?>">
+                                                        value="<?php echo $rowe['firstname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="status">ตำแหน่ง</label>
                                                     <input type="text" class="form-control" name="status" id="status"
-                                                        placeholder="ตำแหน่ง" value="<?php echo $row['status'] ?>">
+                                                        placeholder="ตำแหน่ง" value="<?php echo $rowe['status'] ?>">
                                                 </div>
 
                                                 <div class="form-group">
@@ -71,7 +71,7 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                     <select class="form-control" disabled name="province" id="province">
                                                         <option value="" disabled selected></option>
                                                         <?php
-                                                        echo "<option value='{$row['province']}' selected>{$row['province']}</option>";
+                                                        echo "<option value='{$rowe['province']}' selected>{$rowe['province']}</option>";
                                                         ?>
                                                     </select>
                                                 </div>
@@ -82,7 +82,7 @@ $row = $selectbyidUser->fetch(PDO::FETCH_ASSOC);
                                                     <label for="lastname">นามสกุล</label>
                                                     <input type="text" class="form-control" name="lastname"
                                                         id="lastname" placeholder="นามสกุล"
-                                                        value="<?php echo $row['lastname'] ?>">
+                                                        value="<?php echo $rowe['lastname'] ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="customFile">รูปโปรไฟล์</label>
