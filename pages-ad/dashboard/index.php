@@ -143,6 +143,13 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
                         { title: "รูปภาพ", className: "align-middle", orderable: false },
                         { title: "จัดการ", className: "align-middle", orderable: false }
                     ],
+                    columnDefs: [
+                        { width: '15%', targets: 1 }, 
+                        { width: '15%', targets: 2 }, 
+                        { width: '25%', targets: 3 }, 
+                        { width: '10%', targets: 4 }, 
+                        { width: '20%', targets: 5 }
+                    ],
 
                     initComplete: function () {
                         var column3 = this.api().column(3);

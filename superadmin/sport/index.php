@@ -83,7 +83,7 @@ require_once('../authen.php');
                             item.status,
                             `<img src="../../service/uploads/${item.image}" alt="Image" style="max-width: 50px;">`,
                             `<div class="btn-group" role="group">
-                                <a href="../manager/form-edit.php?id=${item.id}" type="button" class="btn btn-warning text-white">
+                                <a href="../manager/form-edit-sport.php?id=${item.id}" type="button" class="btn btn-warning text-white">
                                     <i class="far fa-edit"></i> แก้ไข
                                 </a>
                                 <button type="button" class="btn btn-danger" id="delete" data-id="${item.id}" data-index="${index}">
@@ -198,7 +198,7 @@ require_once('../authen.php');
                         if (result.isConfirmed) {
                             $.ajax({
                                 type: "POST",
-                                url: "../../service/managercard/delete.php",
+                                url: "../../service/superadmin/sport/delete.php",
                                 data: { id: id },
                             }).done(function () {
                                 Swal.fire({

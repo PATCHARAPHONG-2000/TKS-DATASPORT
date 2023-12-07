@@ -81,7 +81,7 @@ $conn = $Database->connect();
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
-                                                        <p class="col-xl-3 text-muted">ประเภทกีฬา :</p>
+                                                        <p class="col-xl-3 text-muted">จังหวัด :</p>
                                                         <div class="col-xl-9">
                                                             <p><?php echo $info['province'] ?></p>
                                                         </div>

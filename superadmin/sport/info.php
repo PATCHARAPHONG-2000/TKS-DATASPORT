@@ -5,7 +5,7 @@ $Database = new Database();
 $conn = $Database->connect();
     // ดึง ID จาก URL
     $id = $_GET['id'];
-    $selectById = $conn->prepare("SELECT * FROM personnel WHERE id = :id");
+    $selectById = $conn->prepare("SELECT * FROM sport WHERE id = :id");
     $selectById->bindParam(':id', $id);
     $selectById->execute();
 
