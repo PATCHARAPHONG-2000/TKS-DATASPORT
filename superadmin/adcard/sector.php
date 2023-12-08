@@ -65,17 +65,17 @@ if (isset($_SESSION['id_city'])) {
                                     <table id="employeeTable" class="table table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th>
-                                                    <input type="checkbox" id="select_all">
+                                                <th class="align-middle">
+                                                    <input type="checkbox" id="select_all" class="align-middle mt-3">
                                                     <label class=" form-check-label "></label>
                                                 </th>
-                                                <th>ลำดับ</th>
-                                                <th>จังหวัด</th>
-                                                <th>ชื่อ</th>
-                                                <th>นามสกุล</th>
-                                                <th>ตำแหน่ง</th>
-                                                <th>รูป</th>
-                                                <th>พิมพ์</th>
+                                                <th class="align-middle">ลำดับ</th>
+                                                <th class="align-middle">จังหวัด</th>
+                                                <th class="align-middle">ชื่อ</th>
+                                                <th class="align-middle">นามสกุล</th>
+                                                <th class="align-middle">ตำแหน่ง</th>
+                                                <th class="align-middle">รูป</th>
+                                                <th class="align-middle">พิมพ์</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -84,8 +84,8 @@ if (isset($_SESSION['id_city'])) {
                                             if ($per->rowCount() > 0) {
                                                 while ($person = $per->fetch(PDO::FETCH_ASSOC)) { ?>
                                                     <tr id="<?php echo $person["id"]; ?>">
-                                                        <td class="align-middle"><input type="checkbox" class="checkbox" name="idc[]"
-                                                                value="<?php echo $person["id"]; ?>"></td>
+                                                        <td class="align-middle"><input type="checkbox" class="checkbox"
+                                                                name="idc[]" value="<?php echo $person["id"]; ?>"></td>
                                                         <td class="align-middle">
                                                             <?php echo $counter; ?>
                                                         </td>
@@ -156,14 +156,14 @@ if (isset($_SESSION['id_city'])) {
                 className: 'select-checkbox',
 
                 columnDefs: [
-                        { width: '10%', targets: 1 }, 
-                        { width: '15%', targets: 2 }, 
-                        { width: '15%', targets: 3 }, 
-                        { width: '15%', targets: 4 }, 
-                        { width: '20%', targets: 5 }, 
-                        { width: '15%', targets: 6 }, 
-                        { width: '10%', targets: 7 } 
-                    ],
+                    { width: '10%', targets: 1 },
+                    { width: '15%', targets: 2 },
+                    { width: '15%', targets: 3 },
+                    { width: '15%', targets: 4 },
+                    { width: '20%', targets: 5 },
+                    { width: '15%', targets: 6 },
+                    { width: '10%', targets: 7 }
+                ],
 
                 initComplete: function () {
                     var column4 = this.api().column(5);

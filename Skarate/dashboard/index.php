@@ -31,9 +31,9 @@
             height: 100vh;
         }
 
-        .score {
-            /* margin-top: 18%; */
-        }
+        /* .score {
+            margin-top: 18%;
+        } */
     </style>
 
 </head>
