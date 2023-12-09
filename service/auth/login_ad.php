@@ -41,7 +41,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     'SPBRDG','SPSILT','SPAERB','SPCHSS','SPBILR','SPPTNQ','SPESPT','SPKABD','SPWDBL','SPABXN','SPMUTH','SPVOLY','SPHNDL','SPWREST','SPYCHT',
                     'SPJUDO','SPCYCL','SPWTLF','SPARCH','SPROWG','SPHCKY','SPRUGB','SPFENC','SPMOTC','SPJTSK','SPROLS','SPGYMN','SPFGRS','SPEXTR','SPTRAT','SPDRAU','SPKCKB',
                 ];
+                $score = [
+                    'KARATE',
+                    'PCSL',
+                    
+                ];
 
+                $SC = in_array($user['Role'], $score);
                 $SPO = in_array($user['Role'], $SP);
                 $KKTP = in_array($user['Role'], $kkt);
 
@@ -55,6 +61,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         'status' => true,
                         'users' => 'userad',
                         'role' => 'superadmin',
+                        'province' => $_SESSION['id_city']['province'],
+                        'message' => 'Admin Login Success'
+                    ]);
+                    exit();
+                } else if($_SESSION['AD_ROLE']) {
+                    $_SESSION['id_city'] = [
+                        'province' => $user['province'],
+                        'users' => $user['users'],
+                        'area' => $user['area'],
+                    ];
+
+                    echo json_encode([
+                        'status' => true,
+                        'users' => 'userad',
+                        'role' => 'userad',
                         'province' => $_SESSION['id_city']['province'],
                         'message' => 'Admin Login Success'
                     ]);
@@ -87,17 +108,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         'message' => 'Admin Login Success'
                     ]);
                     exit();
-                } else if($_SESSION['AD_ROLE']) {
+                } else if($SC) {
                     $_SESSION['id_city'] = [
                         'province' => $user['province'],
-                        'users' => $user['users'],
-                        'area' => $user['area'],
                     ];
-
                     echo json_encode([
                         'status' => true,
                         'users' => 'userad',
-                        'role' => 'userad',
+                        'role' => 'sport',
                         'province' => $_SESSION['id_city']['province'],
                         'message' => 'Admin Login Success'
                     ]);
