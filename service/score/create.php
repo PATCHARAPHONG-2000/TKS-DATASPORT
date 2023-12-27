@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $conn->beginTransaction();
 
-        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
         $scores = $_POST['scores'];
         $totalSum = $_POST['totalSum'];
         $finalSum = $_POST['finalSum'];

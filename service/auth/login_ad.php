@@ -41,13 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     'SPBRDG','SPSILT','SPAERB','SPCHSS','SPBILR','SPPTNQ','SPESPT','SPKABD','SPWDBL','SPABXN','SPMUTH','SPVOLY','SPHNDL','SPWREST','SPYCHT',
                     'SPJUDO','SPCYCL','SPWTLF','SPARCH','SPROWG','SPHCKY','SPRUGB','SPFENC','SPMOTC','SPJTSK','SPROLS','SPGYMN','SPFGRS','SPEXTR','SPTRAT','SPDRAU','SPKCKB',
                 ];
-                $score = [
-                    'KARATE',
-                    'PCSL',
-                    
-                ];
-
-                $SC = in_array($user['Role'], $score);
+                
                 $SPO = in_array($user['Role'], $SP);
                 $KKTP = in_array($user['Role'], $kkt);
 
@@ -100,18 +94,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         'province' => $user['province'],
                     ];
 
-                    echo json_encode([
-                        'status' => true,
-                        'users' => 'userad',
-                        'role' => 'sport',
-                        'province' => $_SESSION['id_city']['province'],
-                        'message' => 'Admin Login Success'
-                    ]);
-                    exit();
-                } else if($SC) {
-                    $_SESSION['id_city'] = [
-                        'province' => $user['province'],
-                    ];
                     echo json_encode([
                         'status' => true,
                         'users' => 'userad',

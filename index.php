@@ -50,8 +50,9 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
       <div class="contact-info d-flex align-items-center">
       </div>
       <div class="social-links d-none d-md-block">
-        <a href="https://www.facebook.com/TKSsoft" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="https://line.me/ti/p/_EFnRUO5tK" class="line"> <i class="bi bi-line"></i></a>
+        <a href="https://www.facebook.com/TKSsoft" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://line.me/ti/p/_EFnRUO5tK" target="_blank" class="line"> <i class="bi bi-line"></i></a>
+        <a href="login-score" class="karate"><img src="assets/images/karate-icon.png" alt="" style="width: 15px; height:22px;" ></a>
       </div>
     </div>
   </section>
@@ -75,7 +76,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="login" style="color:black">TKS DATASPORT</a>
               <a class="dropdown-item" href="login_ad" style="color:black">AD Card</a>
-              <a class="dropdown-item" href="login_score" style="color:black">Score</a>
             </div>
           </li>
 
@@ -405,7 +405,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
               <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contact</a></li>
             </ul>
           </div>
-
         </div>
       </div>
     </div>
@@ -434,42 +433,6 @@ $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/js/main.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-5B9B8LF4"></script>
-  <script async src="https://easypdpa.com/api/v2/scripts/easycookies/W5XNO1MV39TX/easycookies.js"></script>
-
-
-  <!-- <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments) };
-
-    // ฟังก์ชันของ Consent Mode ของ gtag สำหรับการปิดการใช้งาน Cookie ในตอนเริ่มต้น
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied',
-      wait_for_update: 2000,
-    });
-
-    // การตั้งค่าสำหรับการแสดงผล Cookies Popup
-    window.easycookies = {
-      code: 'W5XNO1MV39TX',
-      callback: (cookies) => {
-        /*
-        Callback ฟังก์ชันจะถูกเรียกใช้เมื่อผู้ใช้งานยอมรับหรือปรับเปลี่ยนความยินยอม โดยจะรับ parameter ที่เป็น object ซึ่งประกอบไปด้วยคีย์ต่างๆดังนี้
-        - performance (boolean) -> บ่งบอกว่าผู้ใช้งานได้ยอมรับหรือไม่ยอมรับคุ้กกี้ประเภท Analytics
-        - functionality (boolean) -> บ่งบอกว่าผู้ใช้งานได้ยอมรับหรือไม่ยอมรับคุ้กกี้ประเภท Preference
-        - advertising (boolean) -> บ่งบอกว่าผู้ใช้งานได้ยอมรับหรือไม่ยอมรับคุ้กกี้ประเภท Advertising
-        */
-        // เรียกใช้งานฟังก์ชัน gtag เมื่อผู้ใช้งานยอมรับหรือปรับเปลี่ยนความยินยอม
-        gtag('consent', 'update', { 'analytics_storage': cookies.performance ? 'granted' : 'denied' });
-      },
-    }
-  </script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'GTM-5B9B8LF4');
-  </script> -->
-
-
 
 </body>
 

@@ -1,9 +1,8 @@
 #login,
-#register
-#province {
+#register #province {
   overflow-y: auto;
   scrollbar-width: none;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .register {
@@ -161,7 +160,7 @@
 .larger-swal {
   border-radius: 10px;
   width: 25%;
-  
+
   height: 75%;
-  
+
 }

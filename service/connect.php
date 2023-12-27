@@ -41,9 +41,3 @@ class Database {
         return $this->conn;
     }
 }
-
-/**
- * ประกาศ Instance ของ Class Database
- */
-// $Database = new Database();
-// $connect = $Database->connect();
